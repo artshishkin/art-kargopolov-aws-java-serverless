@@ -49,7 +49,24 @@ Steps
 -  Actions -> Create Method -> GET
    -  Integration type: Mock
 
+#####  21. Returning Mock Data
 
-
-
+-  `/users` -> GET -> Integration Response
+-  response 200 -> expand -> Mapping Templates
+-  Content type -> application/json ->  
+```json
+[
+   {
+      "firstname": "Art",
+      "lastname": "Shyshkin"
+   },
+   {
+      "firstname": "Kate",
+      "lastname": "Shyshkina"
+   }
+]
+```
+-  Save
+-  Test it:
+   -  `/users` -> GET -> Test -> Test
     
