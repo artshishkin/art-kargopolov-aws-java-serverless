@@ -33,4 +33,12 @@ Steps
     -  API name: `Users Mock API`
     -  Endpoint Type: Edge Optimized
 -  Create API    
+
+#####  19. Creating a new Resource
+
+-  Actions -> Create Resource
+   -  Resource Name: `users`
+   -  CORS: off (for now)
+   -  Create Resource
+
     
