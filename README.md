@@ -41,4 +41,15 @@ Steps
    -  CORS: off (for now)
    -  Create Resource
 
+#####  20. Creating HTTP Method
+
+-  `/users`
+-  Actions -> Create Method -> POST
+   -  Integration type: Mock
+-  Actions -> Create Method -> GET
+   -  Integration type: Mock
+
+
+
+
     
