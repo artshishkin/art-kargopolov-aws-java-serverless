@@ -18,4 +18,19 @@ Steps
 -  Endpoint type: Edge optimized
 -  Fail on Warnings
 -  Import
+
+####  Section 5: Creating Mock API Endpoints
+
+#####  18. Creating a new API
+
+Steps
+-  Amazon API Gateway
+-  Create API
+-  REST API
+-  Build
+-  Protocol: REST
+-  Create new API -> New API
+    -  API name: `Users Mock API`
+    -  Endpoint Type: Edge Optimized
+-  Create API    
     
