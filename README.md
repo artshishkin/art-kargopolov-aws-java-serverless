@@ -230,4 +230,30 @@ Steps
    -  Import
 -  Collections -> Users Mock API
    -  GET `/users/:userId`
-   
+
+####  Section 7: Validating HTTP Request
+
+#####  33. Validating Request Parameters & Headers
+
+-  `/users` -> GET -> Method Request ->
+-  Request Validator: `Validate query string parameters and headers`
+-  HTTP Request Headers
+   -  Add header -> Authorization -> tick
+   -  Required -> true
+-  Test it
+   -  set Request Params: count=2
+   -  headers -> do nothing
+   -  Test ->
+      -  400 Bad Request
+      -  `Response Body`
+      -  `{`
+      -  `"message": "Missing required request parameters: [Authorization]"`
+      -  `}`
+      -  `Response Headers`
+      -  `{"x-amzn-ErrorType":"BadRequestException"}`   
+   -  set header
+      -  `Authorization:FooBuzzBar
+   -  Test -> OK      `
+
+
+
