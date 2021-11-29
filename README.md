@@ -373,5 +373,19 @@ public interface RequestStreamHandler<I, O> {
 -  Runtime settings -> Edit
    -  Handler: `net.shyshkin.study.aws.serverless.photoapp.users.GetUserHandler`
    
+#####  51. Testing Lambda function with Input Template
+
+-  Test
+-  Template: apigateway-aws-proxy
+-  Name: GetUserTemplate
+-  Change
+```
+  "pathParameters": {
+    "proxy": "/path/to/resource",
+    "userId": "123456"
+  },
+```
+-  Test -> OK
+
 
 
