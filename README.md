@@ -201,4 +201,20 @@ Steps
 -  For me it does not return proper content as expected(((
    -  return body is empty
    -  curl works fine
+
+#####  30. Export API with Gateway Extensions
+
+-  Stages -> dev
+   -  Export
+      -  Export as `Swagger`
+      -  Export as Swagger + API Gateway Extensions
+      -  YAML -> Editor -> copy
+-  APIs -> Create new API
+   -  Import from Swagger or Open API 3
+   -  Edge optimized
+   -  Import
+-  View new API
+-  Delete API
+
+
    

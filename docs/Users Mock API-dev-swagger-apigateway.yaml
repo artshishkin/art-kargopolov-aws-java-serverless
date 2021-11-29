@@ -1,0 +1,152 @@
+---
+swagger: "2.0"
+info:
+  version: "2021-11-29T09:06:11Z"
+  title: "Users Mock API"
+host: "bfvrrtg4l2.execute-api.eu-north-1.amazonaws.com"
+basePath: "/dev"
+schemes:
+- "https"
+paths:
+  /users:
+    get:
+      description: "Returns a list of all users."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "count"
+        in: "query"
+        description: "The 'count' Query String Parameter is used to limit the number\
+          \ of users to return."
+        required: false
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "{\r\n   \"content\":[\r\n     {\r\n        \"firstname\"\
+                : \"Art\",\r\n        \"lastname\": \"Shyshkin\"\r\n     },\r\n  \
+                \   {\r\n        \"firstname\": \"Kate\",\r\n        \"lastname\"\
+                : \"Shyshkina\"\r\n     }\r\n   ],\r\n   \"count\":$input.params('count')\r\
+                \n}\r\n"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+    post:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+  /users/{userId}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The id of user to return. The value of userId is UUID."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "{\n    \"userId\":\"$input.params('userId')\",\n\
+                \    \"firstName\":\"Art\",\n    \"lastName\":\"Shyshkin\"\n}"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        passthroughBehavior: "when_no_match"
+        type: "mock"
+definitions:
+  Empty:
+    type: "object"
+    title: "Empty Schema"
+x-amazon-apigateway-documentation:
+  version: "1.0"
+  createdDate: "2021-11-29T08:56:07Z"
+  documentationParts:
+  - location:
+      type: "METHOD"
+      path: "/users"
+      method: "GET"
+    properties:
+      description: "Returns a list of all users."
+  - location:
+      type: "PATH_PARAMETER"
+      path: "/users/{userId}"
+      method: "GET"
+      name: "userId"
+    properties:
+      description: "The id of user to return. The value of userId is UUID."
+  - location:
+      type: "QUERY_PARAMETER"
+      path: "/users"
+      method: "GET"
+      name: "count"
+    properties:
+      description: "The 'count' Query String Parameter is used to limit the number\
+        \ of users to return."
