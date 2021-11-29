@@ -61,3 +61,5 @@ hs_err_pid*
 
 # JMeter
 *.jtl
+
+photo-app-users-api/dependency-reduced-pom.xml
