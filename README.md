@@ -255,5 +255,48 @@ Steps
       -  `Authorization:FooBuzzBar
    -  Test -> OK      `
 
+#####  34. Validating Request Body - Creating a Model
 
-
+-  API: Users Mock API
+-  Models -> [JSON Schema](http://json-schema.org/)
+-  [Getting started](http://json-schema.org/learn/getting-started-step-by-step)
+-  Create
+   -  Model name: `CreateUserModel`
+   -  Content type: `application/json`
+   -  Model description: A model for create new user http POST request
+      
+```json
+{
+   "$schema": "http://json-schema.org/draft-04/schema#",
+   "title": "Create User Model Schema",
+   "type": "object",
+   "properties": {
+      "firstName": {
+         "type": "string",
+         "description": "User's First Name"
+      },
+      "lastName": {
+         "type": "string",
+         "description": "User's Last Name"
+      },
+      "email": {
+         "type": "string",
+         "description": "User's Email"
+      },
+      "password": {
+         "type": "string",
+         "description": "User's Password"
+      },
+      "repeatPassword": {
+         "type": "string",
+         "description": "User's Password Repeat"
+      },
+      "age": {
+         "type": "integer",
+         "description": "User's age"
+      }      
+   },
+   "required": [ "firstName", "lastName", "email", "password", "repeatPassword" ]
+}
+```
+-  Create Model
