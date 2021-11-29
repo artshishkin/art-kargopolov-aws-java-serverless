@@ -356,3 +356,17 @@ public interface RequestStreamHandler<I, O> {
    public O handleRequest(I inputS, O output, Context context) throws IOException;
 }
 ```
+
+####  Section 9: Create Java Lambda using Maven and IDE
+
+#####  49. Creating function in AWS Console
+
+-  Lambda Console -> Create function -> Author from scratch
+-  Function Name: GetUser
+-  Runtime: Java 11 (Corretto)
+-  Create a new role with basic Lambda permissions 
+
+
+
+
+
