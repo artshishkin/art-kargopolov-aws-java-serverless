@@ -144,6 +144,48 @@ Steps
    -  Invoke URL: `https://bfvrrtg4l2.execute-api.eu-north-1.amazonaws.com/dev/users`
    -  Use Postman or IntelliJ Http Client
 
+#####  27. Documenting API
+
+-  API: Users Mock API -> Documentation
+-  Create Documentation Part ->
+   -  Type: Method
+   -  Path: /users
+   -  Method: GET
+```json
+{
+    "description": "Returns a list of all users"
+}
+```
+-  Save
+-  Create Documentation Part ->
+   -  Type: Path Parameter
+   -  Path: /users/{userId}
+   -  Method: GET
+   -  Name: userId
+```json
+{
+    "description": "The id of user to return. The value of userId is UUID."
+}
+```
+-  Save
+-  Resources
+   -  `/users` -> GET -> Book icon (View documentation) ->
+   -  Edit -> Save
+-  `/users` -> GET -> URL Query String Parameters -> count -> Book icon (Documentation button)   
+```json
+{
+    "description": "The 'count' Query String Parameter is used to limit the number of users to return."
+}
+```
+-  Documentation -> Already 3 parts
+-  Publish Documentation ->
+   -  Stage: dev
+   -  Version: 1.0
+   -  Description: First variant of documentation
+   -  Publish
+
+
+
 
 
 
