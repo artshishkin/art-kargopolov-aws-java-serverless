@@ -310,3 +310,32 @@ Steps
       -  Content type: application/json
       -  Model name: CreateUserModel 
 
+#####  36. Validating Request Body - Trying how it works
+
+-  Test it
+-  Empty request body -> Test
+   -  `Status: 400`
+   -  `Latency: 151 ms`
+   -  `Response Body`
+   -  `{`
+   -  `"message": "Invalid request body"`
+   -  `}`
+   -  `Response Headers`
+   -  `{"x-amzn-ErrorType":"BadRequestException"}`
+   -  Logs: `Mon Nov 29 13:31:04 UTC 2021 : Request body does not match model schema for content type application/json: [Unknown error parsing request body]` 
+-  Some properties provided (firstname and lastName)
+   -  Http Response is the same, Logs differs 
+   -  `Mon Nov 29 13:31:51 UTC 2021 : Request body does not match model schema for content type application/json: [object has missing required properties (["email","password","repeatPassword"])]` 
+-  All required properties -> OK
+```json
+{
+    "firstName":"Art",
+    "lastName":"Shyshkin",
+    "email":"d.art.shishkin@gmail.com",
+    "password":"123",
+    "repeatPassword":"321"
+}
+```
+
+
+
