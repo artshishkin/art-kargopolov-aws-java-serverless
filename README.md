@@ -102,4 +102,15 @@ Steps
 }
 ```
 
+#####  24. Query String Parameters
+
+-  `/users` -> GET -> 
+-  Method Request -> URL Query String Parameters ->
+-  Add -> 
+   -  `count`
+
+
+
+
+
    
