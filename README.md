@@ -337,5 +337,22 @@ Steps
 }
 ```
 
+####  Section 8: Introduction to Lambda
 
+#####  39. Anatomy of a Java Lambda function handler
 
+Request interface
+```java
+public interface RequestHandler<I, O>{
+    public O handleRequest(I input, Context context);
+}
+```
+RequestStream interface
+
+```java
+import java.io.IOException;
+
+public interface RequestStreamHandler<I, O> {
+   public O handleRequest(I inputS, O output, Context context) throws IOException;
+}
+```
