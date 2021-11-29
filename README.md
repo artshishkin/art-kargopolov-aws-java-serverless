@@ -80,8 +80,26 @@ Steps
    -  (will create OPTIONS method for preflight request for CORS)
 -  create method GET
 
+#####  23. Reading the path parameter
 
-
-
+-  `/users` -> `/{userId}` -> GET -> 
+-  Integration Response -> status 200 -> Mapping Templates -> application/json 
+```json
+{
+    "userId":"$input.params('userId')",
+    "firstName":"Art",
+    "lastName":"Shyshkin"
+}
+```
+-  Test it
+   -  Test
+   -  Path -> {userId}: 123
+```json
+{
+    "userId":"123",
+    "firstName":"Art",
+    "lastName":"Shyshkin"
+}
+```
 
    
