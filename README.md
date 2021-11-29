@@ -69,4 +69,19 @@ Steps
 -  Save
 -  Test it:
    -  `/users` -> GET -> Test -> Test
-    
+
+#####  22. Path parameter
+
+-  `/users` -> Create Resource
+   -  Name: Single User
+   -  Path: `/{userId}`
+   -  Enable CORS: true
+   -  Create Resource
+   -  (will create OPTIONS method for preflight request for CORS)
+-  create method GET
+
+
+
+
+
+   
