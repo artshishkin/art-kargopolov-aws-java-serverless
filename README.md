@@ -366,7 +366,12 @@ public interface RequestStreamHandler<I, O> {
 -  Runtime: Java 11 (Corretto)
 -  Create a new role with basic Lambda permissions 
 
+#####  50. Deploying Lambda function
 
-
+-  `mvn clean package`
+-  Lambda -> Upload JAR
+-  Runtime settings -> Edit
+   -  Handler: `net.shyshkin.study.aws.serverless.photoapp.users.GetUserHandler`
+   
 
 
