@@ -1,0 +1,80 @@
+openapi: "3.0.1"
+info:
+  title: "Users Mock API"
+  version: "2021-11-29T09:06:11Z"
+servers:
+- url: "https://bfvrrtg4l2.execute-api.eu-north-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: "/dev"
+paths:
+  /users:
+    get:
+      description: "Returns a list of all users."
+      parameters:
+      - name: "count"
+        in: "query"
+        description: "The 'count' Query String Parameter is used to limit the number\
+          \ of users to return."
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+    post:
+      responses:
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+  /users/{userId}:
+    get:
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "The id of user to return. The value of userId is UUID."
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+    options:
+      parameters:
+      - name: "userId"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: "string"
+            Access-Control-Allow-Methods:
+              schema:
+                type: "string"
+            Access-Control-Allow-Headers:
+              schema:
+                type: "string"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+components:
+  schemas:
+    Empty:
+      title: "Empty Schema"
+      type: "object"

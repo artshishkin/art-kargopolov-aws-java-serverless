@@ -184,10 +184,21 @@ Steps
    -  Description: First variant of documentation
    -  Publish
 
+####   Section 6: Exporting API
 
+#####  29. Export API and Test with Swagger
 
-
-
-
-
+-  Deploy the latest changes
+   -  Resources -> Actions -> Deploy API
+   -  Deployment stage: dev
+-  Stages -> dev
+   -  Export
+      -  Export as `OpenAPI 3`
+      -  YAML -> Editor
+-  Go to [swagger.io](https://swagger.io/)
+   -  Tools -> [Swagger Editor](https://swagger.io/tools/swagger-editor/) ->
+   -  Live Demo -> Insert content of [exported documentation](docs/Users Mock API-dev-oas30.yaml)
+-  For me it does not return proper content as expected(((
+   -  return body is empty
+   -  curl works fine
    
