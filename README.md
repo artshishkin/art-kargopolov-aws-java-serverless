@@ -109,7 +109,29 @@ Steps
 -  Add -> 
    -  `count`
 
+#####  25. Reading Query String Parameter in a Mapping template
 
+-  `/users` -> GET ->
+-  Integration Response -> 200 -> Mapping Templates -> application/json
+
+```json
+{
+   "users":[
+     {
+        "firstname": "Art",
+        "lastname": "Shyshkin"
+     },
+     {
+        "firstname": "Kate",
+        "lastname": "Shyshkina"
+     }
+   ],
+   "count": $input.params('count')
+}
+```
+-  Test it
+   -  `/users` -> GET ->
+   -  Query String -> count=3 -> Test -> OK
 
 
 
