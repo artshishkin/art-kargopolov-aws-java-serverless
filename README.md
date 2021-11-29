@@ -300,3 +300,13 @@ Steps
 }
 ```
 -  Create Model
+
+#####  35. Associate Model with HTTP Request
+
+-  Resources -> `/users` -> Add Method -> POST
+-  Method Request ->
+   -  Request Validator: Validate body 
+   -  Request Body -> Add Model 
+      -  Content type: application/json
+      -  Model name: CreateUserModel 
+
