@@ -216,5 +216,18 @@ Steps
 -  View new API
 -  Delete API
 
+#####  31. Export API and Test with Postman
 
+-  Stages -> dev
+   -  Export
+      -  Export as `Swagger`
+      -  Export as Swagger + Postman Extensions
+      -  YAML -> Editor -> copy
+-  Postman
+   -  Import -> Raw text -> paste
+   -  Continue
+   -  Generate collection from imported APIs
+   -  Import
+-  Collections -> Users Mock API
+   -  GET `/users/:userId`
    
