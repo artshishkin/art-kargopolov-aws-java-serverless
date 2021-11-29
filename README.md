@@ -133,6 +133,19 @@ Steps
    -  `/users` -> GET ->
    -  Query String -> count=3 -> Test -> OK
 
+#####  26. Deploying Mock API
+
+-  Actions -> Deploy API
+-  Development Stage -> New Stage
+   -  Stage name: dev (any name)
+   -  Deploy
+-  Invoke:
+   -  Stages -> dev -> `/users` -> GET -> 
+   -  Invoke URL: `https://bfvrrtg4l2.execute-api.eu-north-1.amazonaws.com/dev/users`
+   -  Use Postman or IntelliJ Http Client
+
+
+
 
 
    

@@ -1,0 +1,8 @@
+GET https://bfvrrtg4l2.execute-api.eu-north-1.amazonaws.com/dev/users?count=2
+Accept: application/json
+
+###
+GET https://bfvrrtg4l2.execute-api.eu-north-1.amazonaws.com/dev/users/{{$uuid}}
+Accept: application/json
+
+
