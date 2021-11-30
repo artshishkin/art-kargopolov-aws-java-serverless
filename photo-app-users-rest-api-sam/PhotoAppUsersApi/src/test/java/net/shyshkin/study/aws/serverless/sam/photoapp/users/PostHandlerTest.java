@@ -34,7 +34,7 @@ public class PostHandlerTest {
         assertTrue(content.contains("\"userId\""));
 
         Gson gson = new Gson();
-        PostHandler.UserDetails userDetails = gson.fromJson(content, PostHandler.UserDetails.class);
+        UserDetails userDetails = gson.fromJson(content, UserDetails.class);
 
         assertEquals("Art", userDetails.firstName);
         assertEquals("Shyshkin", userDetails.lastName);

@@ -413,3 +413,11 @@ public interface RequestStreamHandler<I, O> {
 -  Project name: `photo-app-users-rest-api-sam`
 -  `1 - Hello World Example: Maven`
 
+#####  67. Invoke Remote Lambda function from local computer
+
+From directory where `template.yml` is located
+-  `sam build` - build and package application
+-  `sam local invoke CreateNewUserFunction --event events/event.json`
+
+
+

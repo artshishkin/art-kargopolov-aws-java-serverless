@@ -63,3 +63,4 @@ hs_err_pid*
 *.jtl
 
 photo-app-users-api/dependency-reduced-pom.xml
+/photo-app-users-rest-api-sam/.aws-sam/

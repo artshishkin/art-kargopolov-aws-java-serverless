@@ -36,10 +36,4 @@ public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, 
         return responseEvent;
     }
 
-    static class UserDetails {
-        String firstName;
-        String lastName;
-        String userId;
-    }
-
 }
