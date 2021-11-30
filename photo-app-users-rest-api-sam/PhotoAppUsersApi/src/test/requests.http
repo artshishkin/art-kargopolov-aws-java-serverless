@@ -7,3 +7,12 @@ Content-Type: application/json
 }
 
 ###
+
+POST https://89sldcq35g.execute-api.eu-north-1.amazonaws.com/Prod/users/
+Content-Type: application/json
+
+{
+  "firstName": "Nazar",
+  "lastName": "Shyshkin"
+}
+

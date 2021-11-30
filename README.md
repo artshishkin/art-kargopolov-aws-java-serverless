@@ -458,4 +458,15 @@ For the first time run
    -  Enter
    -  Confirm changes: y 
    
+#####  70. Invoke public API Endpoint
+
+```shell
+curl --location --request POST 'https://89sldcq35g.execute-api.eu-north-1.amazonaws.com/Prod/users/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Nazar",
+    "lastName": "Shyshkin"
+}'
+```
+
 
