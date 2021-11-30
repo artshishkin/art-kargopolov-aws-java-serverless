@@ -477,3 +477,10 @@ curl --location --request POST 'https://89sldcq35g.execute-api.eu-north-1.amazon
    -  live logs
    -  `sam logs --name CreateNewUserFunction --stack-name PhotoAppUsersRestApi --tail`
 
+#####  72. Delete AWS SAM application
+
+-  from `samconfig.toml` copy stack name: `PhotoAppUsersRestApi`
+-  `sam delete PhotoAppUsersRestApi`
+   - Are you sure? -> yes,yes
+
+
