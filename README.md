@@ -430,3 +430,17 @@ From directory where `template.yml` is located
 -  Add debug breakpoint
 -  Debug
 
+#####  68.2 Run Lambda function locally
+
+-  `sam local start-api`
+-  curl
+```shell
+curl --location --request POST 'http://localhost:3000/users' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Nazar",
+    "lastName": "Shyshkin"
+}'
+```
+
+
