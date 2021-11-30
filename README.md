@@ -387,5 +387,17 @@ public interface RequestStreamHandler<I, O> {
 ```
 -  Test -> OK
 
+#####  52. Create new API project
 
+-  Name:  `Photo App Users API` 
+
+#####  53. Assigning Lambda function to API Endpoint
+
+-  create resource `/users`
+-  create sub-resource `/{userId}`
+-  create method GET
+-  Lambda
+-  Use Lambda Proxy integration: **true**
+-  Save -> Add permissions -> ok
+-  Test it -> with random userId
 
