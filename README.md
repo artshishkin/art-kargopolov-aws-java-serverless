@@ -401,3 +401,15 @@ public interface RequestStreamHandler<I, O> {
 -  Save -> Add permissions -> ok
 -  Test it -> with random userId
 
+####  Section 10: AWS SAM - Tools to create & deploy Lambda functions
+
+#####  59. Creating a new project with SAM
+
+-  `sam init`
+-  `1 - AWS Quick Start Templates`
+-  `1 - Zip (artifact is a zip uploaded to S3)`
+-  `5 - java11`
+-  `1 - maven`
+-  Project name: `photo-app-users-rest-api-sam`
+-  `1 - Hello World Example: Maven`
+
