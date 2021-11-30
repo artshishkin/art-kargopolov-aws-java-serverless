@@ -443,4 +443,19 @@ curl --location --request POST 'http://localhost:3000/users' \
 }'
 ```
 
+#####  69. Deploy Lambda function to AWS
+
+For the first time run
+-  `sam deploy --guided`
+   -  Stack Name: `PhotoAppUsersRestApi`
+   -  AWS Region: just Enter
+   -  Confirm changes before deploy: y
+   -  Allow SAM CLI IAM role creation: Y
+   -  ... may not have authorization defined. Ok?: y
+   -  Save to config?: y
+   -  SAM configuration file: enter (use default)
+   -  SAM config environment [default]: enter
+   -  Enter
+   -  Confirm changes: y 
+   
 
