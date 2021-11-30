@@ -14,7 +14,13 @@ import java.util.UUID;
  */
 public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
+    private final UUID lambdaId = UUID.randomUUID();
+
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
+
+        if (context != null) {
+            context.getLogger().log("Handling Http Post request for /users API Endpoint by Lambda: " + lambdaId);
+        }
 
         String body = input.getBody();
 

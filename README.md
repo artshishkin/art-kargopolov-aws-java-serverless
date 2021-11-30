@@ -469,4 +469,11 @@ curl --location --request POST 'https://89sldcq35g.execute-api.eu-north-1.amazon
 }'
 ```
 
+#####  71. Viewing logs
+
+1.  CloudWatchLogs
+2.  SAM
+   -  `sam logs --name CreateNewUserFunction --stack-name PhotoAppUsersRestApi`
+   -  live logs
+   -  `sam logs --name CreateNewUserFunction --stack-name PhotoAppUsersRestApi --tail`
 
