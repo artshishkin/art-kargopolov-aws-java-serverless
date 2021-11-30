@@ -5,10 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,27 +20,26 @@ public class PostHandler implements RequestHandler<APIGatewayProxyRequestEvent, 
 
         Gson gson = new Gson();
 
-        Type typeOfT = new TypeToken<Map<String, String>>() {
-        }.getType();
+        var userDetails = gson.fromJson(body, UserDetails.class);
 
-        Map<String, String> userDetails = gson.fromJson(body, typeOfT);
+        userDetails.userId = UUID.randomUUID().toString();
 
-        userDetails.put("userId", UUID.randomUUID().toString());
-
-        JsonObject returnValue = new JsonObject();
-
-        returnValue.addProperty("firstName", userDetails.get("firstName"));
-        returnValue.addProperty("lastName", userDetails.get("lastName"));
-        returnValue.addProperty("userId", userDetails.get("userId"));
+        String userDetailsJson = gson.toJson(userDetails);
 
         var responseEvent = new APIGatewayProxyResponseEvent();
 
         responseEvent
                 .withStatusCode(200)
                 .withHeaders(Map.of("Content-Type", "application/json"))
-                .withBody(returnValue.toString());
+                .withBody(userDetailsJson);
 
         return responseEvent;
+    }
+
+    static class UserDetails {
+        String firstName;
+        String lastName;
+        String userId;
     }
 
 }

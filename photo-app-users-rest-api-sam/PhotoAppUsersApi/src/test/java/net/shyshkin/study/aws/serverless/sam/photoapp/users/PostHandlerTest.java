@@ -2,8 +2,11 @@ package net.shyshkin.study.aws.serverless.sam.photoapp.users;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.junit.Test;
+
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -29,6 +32,13 @@ public class PostHandlerTest {
         assertTrue(content.contains("\"lastName\""));
         assertTrue(content.contains("\"Shyshkin\""));
         assertTrue(content.contains("\"userId\""));
+
+        Gson gson = new Gson();
+        PostHandler.UserDetails userDetails = gson.fromJson(content, PostHandler.UserDetails.class);
+
+        assertEquals("Art", userDetails.firstName);
+        assertEquals("Shyshkin", userDetails.lastName);
+        assertNotNull(UUID.fromString(userDetails.userId));
 
     }
 }
