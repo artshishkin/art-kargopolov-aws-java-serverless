@@ -419,5 +419,14 @@ From directory where `template.yml` is located
 -  `sam build` - build and package application
 -  `sam local invoke CreateNewUserFunction --event events/event.json`
 
+#####  68.1 Debug Lambda function locally
 
+-  `sam local invoke CreateNewUserFunction --event events/event.json -d 5858`
+-  `d` - debug port number
+-  IntelliJ -> Add Configuration -> New -> Remote JVM Debug
+   -  Name: SAM Local (any name)
+   -  Port: 5858
+   -  Use module classpath: PhotoAppUsersApi
+-  Add debug breakpoint
+-  Debug
 
