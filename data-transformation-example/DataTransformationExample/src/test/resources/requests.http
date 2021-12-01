@@ -1,0 +1,13 @@
+POST  https://37lcme5ghg.execute-api.eu-north-1.amazonaws.com/Prod/users
+Content-Type: application/json
+
+{
+  "userFirstName": "Arina",
+  "userLastName": "Shyshkina",
+  "userEmail": "d.art.shishkin@gmail.com",
+  "userPassword": "123",
+  "userRepeatPassword": "321",
+  "userAge": 11
+}
+
+###

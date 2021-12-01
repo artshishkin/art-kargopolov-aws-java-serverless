@@ -700,4 +700,27 @@ Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
 -  Method Response -> Add Response -> 200
 -  Response Body -> Add Response Model -> CreateUserResponseMappingTemplate -> tick
 
+#####  84. Trying how the Response Mapping
+
+-  API Gateway -> Resources -> `/users` -> POST -> Test
+-  Request Body
+```json
+{
+  "userFirstName": "Arina",
+  "userLastName": "Shyshkina",
+  "userEmail": "d.art.shishkin@gmail.com",
+  "userPassword": "123",
+  "userRepeatPassword": "321",
+  "userAge": 11
+}
+```
+-  Status: 200
+-  Latency: 621 ms
+-  TResponse Headers:
+  -  `{"X-Amzn-Trace-Id":"Root=1-61a74cdf-52cf8d8517414ae522eed2b0;Sampled=0","Content-Type":"application/json"}`
+-  Actions -> Deploy API -> Prod
+-  curl it
+
+
+
 
