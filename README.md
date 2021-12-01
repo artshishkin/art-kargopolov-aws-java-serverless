@@ -778,3 +778,39 @@ Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
   "stage": "$context.stage"
 }
 ```    
+
+#####  90. Trying how it works
+
+1.  Test in Gateway Client
+    -  with correct params: `dividend=2&divisor=3` -> OK
+    -  with empty request params -> custom 400 error
+2.  Deploy API -> to Prod
+3.  Test in external client (Postman or IntelliJ)
+    -  `GET https://v95tcmrgmd.execute-api.eu-north-1.amazonaws.com/Prod/divide?dividend=2&divisor=3` -> OK
+    -  `GET https://v95tcmrgmd.execute-api.eu-north-1.amazonaws.com/Prod/divide` - 400
+```
+HTTP/1.1 400 Bad Request
+
+x-amzn-RequestId: dd611f3d-7937-4380-8711-29975cda16d9
+art-app-header: something wrong
+art-app-error-msg: "Missing required request parameters: [divisor, dividend]"
+x-amzn-ErrorType: BadRequestException
+api-key: someCoolSecret
+x-amz-apigw-id: JrtEUESLAi0F5hg=
+X-Cache: Error from cloudfront
+Via: 1.1 94faae20b0f122c4555025f52a2fd745.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: FRA6-C1
+X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
+```
+
+```json
+{
+  "message": "Missing required request parameters: [divisor, dividend]",
+  "responseType": "BAD_REQUEST_PARAMETERS",
+  "apiId": "v95tcmrgmd",
+  "method": "GET",
+  "path": "/Prod/divide",
+  "time": "01/Dec/2021:18:42:35 +0000",
+  "stage": "Prod"
+}
+```
