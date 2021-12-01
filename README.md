@@ -596,5 +596,42 @@ curl --location --request POST 'https://89sldcq35g.execute-api.eu-north-1.amazon
 }
 ```
 
+#####  79. Transforming HTTP Request Payload
+
+-  API Gateway -> Resources ->
+-  `/users` -> POST -> Integration Request
+-  Uncheck `Use Lambda Proxy Integration`
+-  Mapping Template
+  -  Request body passthrough: `When there are no templates defined (recommended)` 
+-  Add mapping template
+  -  application/json
+  -  Generate template -> CreateUserRequestMappingTemplate
+  -  [Apache Velocity Template Language](https://velocity.apache.org/engine/1.7/user-guide.html)
+  -  [Working with models and mapping templates](https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html)
+  -  [API Gateway mapping template and access logging variable reference](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html)
+    
+```json
+#set($inputRoot = $input.path('$'))
+{
+  "firstName" : "$inputRoot.userFirstName",
+  "lastName" : "$inputRoot.userLastName",
+  "email" : "$inputRoot.userEmail",
+  "password" : "$inputRoot.userPassword",
+  "repeatPassword" : "$inputRoot.userRepeatPassword",
+  "age" : $inputRoot.userAge
+}
+```
+Escaping JavaScript (` We recommend that you use $util.escapeJavaScript to sanitize the result to avoid a potential injection attack`)
+```json
+#set($inputRoot = $input.path('$'))
+{
+"firstName" : "$util.escapeJavaScript($inputRoot.userFirstName)",
+"lastName" : "$util.escapeJavaScript($inputRoot.userLastName)",
+"email" : "$util.escapeJavaScript($inputRoot.userEmail)",
+"password" : "$util.escapeJavaScript($inputRoot.userPassword)",
+"repeatPassword" : "$util.escapeJavaScript($inputRoot.userRepeatPassword)",
+"age" : $inputRoot.userAge
+}
+```
 
 
