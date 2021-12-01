@@ -657,4 +657,43 @@ Wed Dec 01 09:40:57 UTC 2021 : Execution failed due to configuration error: Outp
 Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
 ```
 
+#####  82. Response Mapping Template
+
+-  API Gateway
+   -  for study purpose modify CreateUserResponseMappingTemplate
+```json
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Create User Response Model Schema",
+  "type": "object",
+  "properties": {
+    "userFirstName": {
+      "type": "string"
+    },
+    "userLastName": {
+      "type": "string"
+    },
+    "userEmail": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string",
+      "description": "Unique user identifier"
+    }
+  }
+}
+```  
+-  `/users` -> POST -> Integration Response -> Mapping Template -> application/json   
+-  Generate template: `CreateUserResponseMappingTemplate`
+```json
+#set($inputRoot = $input.path('$'))
+{
+  "userFirstName" : "$inputRoot.firstName",
+  "userLastName" : "$inputRoot.lastName",
+  "userEmail" : "$inputRoot.email",
+  "userId" : "$inputRoot.id"
+}
+```
+
+
 
