@@ -22,12 +22,15 @@ public class PostHandler implements RequestHandler<Map<String, String>, Map<Stri
         var password = input.get("password");
         var repeatPassword = input.get("repeatPassword");
 
+        var secretKey = input.get("secretKey");
+
         if (context != null) {
             LambdaLogger logger = context.getLogger();
             logger.log("Handling Http Post request for /users API Endpoint by Lambda: " + lambdaId);
             logger.log("User firstName: " + firstName);
             logger.log("User lastName: " + lastName);
             logger.log("User email: " + email);
+            logger.log("User secretKey: " + secretKey);
         }
 
         return Map.of(

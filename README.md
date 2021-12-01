@@ -721,6 +721,22 @@ Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
 -  Actions -> Deploy API -> Prod
 -  curl it
 
+#####  85. Reading with Query String Parameters & Headers
 
-
-
+-  API Gateway -> `/users` -> POST -> Integration Request
+-  mapping Templates -> application/json
+  -  append `"secretKey": "$util.escapeJavaScript($input.params('userSecretKey'))"` to template
+-  Test it
+  -  as **Header**
+    -  `userSecretKey:123456header`
+  -  as **RequestParameter**
+    -  `userSecretKey=123456param`
+  -  as **both** then
+    -  got `"secretKey": "123456param"` -> Param has more privilege
+  -  if neither header nor param have `userSecretKey`
+    -  `"secretKey": ""`
+-  `sam build`
+-  `sam deploy`
+-  `sam logs --name PostHandlerFunction --stack-name data-transformation-example --tail`
+-  API Gateway -> Deploy API -> Prod
+-  curl
