@@ -695,5 +695,9 @@ Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
 }
 ```
 
+#####  83. Configure Method Response
+
+-  Method Response -> Add Response -> 200
+-  Response Body -> Add Response Model -> CreateUserResponseMappingTemplate -> tick
 
 
