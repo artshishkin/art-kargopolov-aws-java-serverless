@@ -483,4 +483,49 @@ curl --location --request POST 'https://89sldcq35g.execute-api.eu-north-1.amazon
 -  `sam delete PhotoAppUsersRestApi`
    - Are you sure? -> yes,yes
 
+####  Section 11: Data Transformations
+
+#####  77. Creating a new Request Model
+
+-  deploy (`sam deploy --guided`)
+-  API Gateway console ->
+   -  `data-transformation-example`
+   -  Models -> Create Model
+      -  Name: `CreateUserRequestMappingTemplate`
+      -  Content type: application/json
+```json
+{
+   "$schema": "http://json-schema.org/draft-04/schema#",
+   "title": "Create User Model Schema",
+   "type": "object",
+   "properties": {
+      "firstName": {
+         "type": "string",
+         "description": "User's First Name"
+      },
+      "lastName": {
+         "type": "string",
+         "description": "User's Last Name"
+      },
+      "email": {
+         "type": "string",
+         "description": "User's Email"
+      },
+      "password": {
+         "type": "string",
+         "description": "User's Password"
+      },
+      "repeatPassword": {
+         "type": "string",
+         "description": "User's Password Repeat"
+      },
+      "age": {
+         "type": "integer",
+         "description": "User's age"
+      }      
+   },
+   "required": [ "firstName", "lastName", "email", "password", "repeatPassword" ]
+}
+```
+
 
