@@ -745,6 +745,36 @@ Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
 
 #####  87. Project source code(Proxy Integration)
 
+#####  89. Customize the Default API Gateway Error Response
 
-
-
+1. Make query string parameters required
+    -  API Gateway -> URL Query String Parameters -> Add
+        -  dividend -> required        
+        -  divisor -> required
+    -  Request Validator -> Validate Query String Parameters and Headers
+2.  Test it
+    -  Test without params
+    -  `{"message": "Missing required request parameters: [divisor, dividend]"}`
+3.  Gateway API -> Gateway Responses
+    -  Default 4XX
+    -  application/json
+    -  Edit
+    -  Response headers
+        -  `art-app-header`: `'I know that you did something bad!'` - hardcoded STATIC_VALUE
+        -  `art-app-error-msg`: `context.error.message` - context variables 
+        -  `api-key`: `method.request.header.api-key` - incoming request parameter
+    -  Response templates
+        -  application/json
+        -  Response template body
+        -  use [docs](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html)
+```json
+{
+  "message":$context.error.messageString,
+  "responseType": "$context.error.responseType",
+  "apiId": "$context.apiId",
+  "method": "$context.httpMethod",
+  "path": "$context.path",
+  "time": "$context.requestTime",
+  "stage": "$context.stage"
+}
+```    
