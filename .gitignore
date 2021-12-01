@@ -62,5 +62,6 @@ hs_err_pid*
 # JMeter
 *.jtl
 
-photo-app-users-api/dependency-reduced-pom.xml
-/photo-app-users-rest-api-sam/.aws-sam/
+.aws-sam/
+
+dependency-reduced-pom.xml
