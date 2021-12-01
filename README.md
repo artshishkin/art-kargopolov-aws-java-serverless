@@ -634,4 +634,27 @@ Escaping JavaScript (` We recommend that you use $util.escapeJavaScript to sanit
 }
 ```
 
+#####  81. Trying how it works
+
+-  API Gateway -> Resources -> `/users` -> POST -> Test
+-  Request Body
+```json
+{
+  "userFirstName": "Arina",
+  "userLastName": "Shyshkina",
+  "userEmail": "d.art.shishkin@gmail.com",
+  "userPassword": "123",
+  "userRepeatPassword": "321",
+  "userAge": 11
+}
+```
+-  `{"x-amzn-ErrorType":"InternalServerErrorException"}`
+-  Method request body before transformations:  correct
+-  Endpoint request body after transformations: correct
+```
+Wed Dec 01 09:40:57 UTC 2021 : Endpoint response body before transformations: {"firstName":"Arina","lastName":"Shyshkina","id":"23fde9aa-c690-4710-8d38-6710995dcb09","email":"d.art.shishkin@gmail.com"}
+Wed Dec 01 09:40:57 UTC 2021 : Execution failed due to configuration error: Output mapping refers to an invalid method response: 200
+Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
+```
+
 
