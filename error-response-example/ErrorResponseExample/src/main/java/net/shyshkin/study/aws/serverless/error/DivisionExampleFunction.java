@@ -25,11 +25,13 @@ public class DivisionExampleFunction implements RequestHandler<APIGatewayProxyRe
 
         int dividend = Integer.parseInt(queryStringParameters.get("dividend"));
         int divisor = Integer.parseInt(queryStringParameters.get("divisor"));
+        int result = dividend / divisor;
 
         response.withStatusCode(200).withBody(
                 "{"
                         + "\"dividend\":" + dividend + ","
-                        + "\"divisor\":" + divisor +
+                        + "\"divisor\":" + divisor + ","
+                        + "\"result\":" + result +
                         "}"
         );
 

@@ -814,3 +814,20 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
   "stage": "Prod"
 }
 ```
+
+#####  91. Proxy Integration. Causing a 500 Server Error.
+
+-  modify code to throw exceptions
+-  deploy
+-  invoke
+    -  `dividend=6&divisor=2` -> ok
+    -  `dividend=6&divisor=0` -> 500 {"errorMessage":"/ by zero","errorType":"java.lang.ArithmeticException"...
+    -  `dividend=NAN&divisor=2` -> 500 {"errorMessage":"For input string: \"NAN\"","errorType":"java.lang.NumberFormatException"...
+-  customize error message
+    -  API Gateway -> Gateway Responses -> 5XX -> customize like in #89
+
+
+
+
+
+    
