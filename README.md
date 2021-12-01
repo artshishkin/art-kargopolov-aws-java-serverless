@@ -740,3 +740,11 @@ Wed Dec 01 09:40:57 UTC 2021 : Method completed with status: 500
 -  `sam logs --name PostHandlerFunction --stack-name data-transformation-example --tail`
 -  API Gateway -> Deploy API -> Prod
 -  curl
+
+####  Section 12: Error Responses
+
+#####  87. Project source code(Proxy Integration)
+
+
+
+

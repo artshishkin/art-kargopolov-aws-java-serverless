@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "error-response-example"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1alt62pqr870u"
+s3_prefix = "error-response-example"
+region = "eu-north-1"
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []
