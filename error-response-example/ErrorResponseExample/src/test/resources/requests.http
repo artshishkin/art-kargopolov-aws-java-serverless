@@ -1,5 +1,5 @@
 ###  Correct request
-GET https://v95tcmrgmd.execute-api.eu-north-1.amazonaws.com/Prod/divide?dividend=2&divisor=3
+GET https://v95tcmrgmd.execute-api.eu-north-1.amazonaws.com/Prod/divide?dividend=6&divisor=2
 Accept: application/json
 api-key: someCoolSecret
 
@@ -7,6 +7,14 @@ api-key: someCoolSecret
 GET https://v95tcmrgmd.execute-api.eu-north-1.amazonaws.com/Prod/divide
 Accept: application/json
 api-key: someCoolSecret
+
+###  ArithmeticException
+GET https://v95tcmrgmd.execute-api.eu-north-1.amazonaws.com/Prod/divide?dividend=6&divisor=0
+Accept: application/json
+
+###  NumberFormatException
+GET https://v95tcmrgmd.execute-api.eu-north-1.amazonaws.com/Prod/divide?dividend=NaN&divisor=2
+Accept: application/json
 
 
 

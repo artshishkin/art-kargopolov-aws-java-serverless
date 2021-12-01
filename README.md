@@ -823,6 +823,7 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  `dividend=6&divisor=2` -> ok
     -  `dividend=6&divisor=0` -> 500 {"errorMessage":"/ by zero","errorType":"java.lang.ArithmeticException"...
     -  `dividend=NAN&divisor=2` -> 500 {"errorMessage":"For input string: \"NAN\"","errorType":"java.lang.NumberFormatException"...
+-  `sam logs -n DivisionExampleFunction --stack-name error-response-example --start-time "5mins ago" --tail`
 -  customize error message
     -  API Gateway -> Gateway Responses -> 5XX -> customize like in #89
 
