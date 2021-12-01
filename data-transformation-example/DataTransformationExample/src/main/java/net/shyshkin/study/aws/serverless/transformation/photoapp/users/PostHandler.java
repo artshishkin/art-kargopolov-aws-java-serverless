@@ -1,9 +1,9 @@
 package net.shyshkin.study.aws.serverless.transformation.photoapp.users;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,12 +16,26 @@ public class PostHandler implements RequestHandler<Map<String, String>, Map<Stri
 
     public Map<String, String> handleRequest(final Map<String, String> input, final Context context) {
 
+        var firstName = input.get("firstName");
+        var lastName = input.get("lastName");
+        var email = input.get("email");
+        var password = input.get("password");
+        var repeatPassword = input.get("repeatPassword");
+
         if (context != null) {
-            context.getLogger().log("Handling Http Post request for /users API Endpoint by Lambda: " + lambdaId + " and request body " + input);
+            LambdaLogger logger = context.getLogger();
+            logger.log("Handling Http Post request for /users API Endpoint by Lambda: " + lambdaId);
+            logger.log("User firstName: " + firstName);
+            logger.log("User lastName: " + lastName);
+            logger.log("User email: " + email);
         }
-        var result = new HashMap<>(input);
-        result.put("userId", UUID.randomUUID().toString());
-        return result;
+
+        return Map.of(
+                "firstName", firstName,
+                "lastName", lastName,
+                "email", email,
+                "id", UUID.randomUUID().toString()
+        );
     }
 
 }
