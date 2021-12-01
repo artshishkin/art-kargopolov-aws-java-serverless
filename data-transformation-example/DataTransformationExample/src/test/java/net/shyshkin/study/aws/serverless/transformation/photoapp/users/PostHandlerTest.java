@@ -1,44 +1,27 @@
 package net.shyshkin.study.aws.serverless.transformation.photoapp.users;
 
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
-import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.junit.Test;
 
+import java.util.Map;
 import java.util.UUID;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class PostHandlerTest {
-  @Test
-  public void successfulResponse() {
-    PostHandler postHandler = new PostHandler();
+    @Test
+    public void successfulResponse() {
+        PostHandler postHandler = new PostHandler();
 
-    JsonObject requestBody = new JsonObject();
-    requestBody.addProperty("firstName", "Art");
-    requestBody.addProperty("lastName", "Shyshkin");
+        var requestBody = Map.of(
+                "firstName", "Art",
+                "lastName", "Shyshkin"
+        );
 
-    var requestEvent = new APIGatewayProxyRequestEvent();
-    requestEvent.setBody(requestBody.toString());
+        var result = postHandler.handleRequest(requestBody, null);
 
-    APIGatewayProxyResponseEvent result = postHandler.handleRequest(requestEvent, null);
-    assertEquals(200, result.getStatusCode().intValue());
-    assertEquals("application/json", result.getHeaders().get("Content-Type"));
-    String content = result.getBody();
-    assertNotNull(content);
-    assertTrue(content.contains("\"firstName\""));
-    assertTrue(content.contains("\"Art\""));
-    assertTrue(content.contains("\"lastName\""));
-    assertTrue(content.contains("\"Shyshkin\""));
-    assertTrue(content.contains("\"userId\""));
-
-    Gson gson = new Gson();
-    UserDetails userDetails = gson.fromJson(content, UserDetails.class);
-
-    assertEquals("Art", userDetails.firstName);
-    assertEquals("Shyshkin", userDetails.lastName);
-    assertNotNull(UUID.fromString(userDetails.userId));
-
-  }
+        assertEquals("Art", result.get("firstName"));
+        assertEquals("Shyshkin", result.get("lastName"));
+        assertNotNull(UUID.fromString(result.get("userId")));
+    }
 }
