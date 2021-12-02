@@ -30,13 +30,36 @@ Resources:
             Path: /divide
             Method: get
 
+  DivisionExampleNonProxyFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ErrorResponseExample
+      Handler: net.shyshkin.study.aws.serverless.error.DivisionExampleNonProxyFunction::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          PARAM1: VALUE
+      Events:
+        DefaultErrorResponseExample:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /divide
+            Method: post
+
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   DivisionExampleApi:
     Description: "API Gateway endpoint URL for Prod stage for Division Example function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide?dividend=6&divisor=2"
+  DivisionExampleNonProxyApi:
+    Description: "API Gateway endpoint URL for Prod stage for Division Example Non Proxy function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide-non-proxy?dividend=6&divisor=2"
   DivisionExampleFunction:
     Description: "Division Example Lambda Function ARN"
     Value: !GetAtt DivisionExampleFunction.Arn
