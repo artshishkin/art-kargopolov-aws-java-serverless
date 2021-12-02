@@ -4,7 +4,7 @@ info:
   description: "API to study Error Handling in Serverless Apps"
   version: "1.0"
 servers:
-- url: "https://1wt9plz7ig.execute-api.eu-north-1.amazonaws.com/{basePath}"
+- url: "https://382bl8qgsd.execute-api.eu-north-1.amazonaws.com/{basePath}"
   variables:
     basePath:
       default: "/Prod"
@@ -18,6 +18,13 @@ paths:
           Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DivisionExampleFunction.Arn}/invocations' #DivisionExampleFunction.Arn
         passthroughBehavior: "when_no_match"
     post:
+      responses:
+        "500":
+          description: "500 response"
+          content: {}
+        "200":
+          description: "200 response"
+          content: {}
       x-amazon-apigateway-integration:
         type: "aws"
         httpMethod: "POST"
@@ -26,6 +33,12 @@ paths:
         responses:
           default:
             statusCode: "200"
+          'Exception: .*':
+            statusCode: "500"
+            responseTemplates:
+              application/json: "{\n  \"errorMessage\":$input.json('$.errorMessage'),\n\
+                \  \"type\":$input.json('$.errorType'),\n  \"requestTime\": \"$context.requestTime\"\
+                ,\n  \"stackTrace\":$input.json('$.stackTrace'),\n}\n"
         passthroughBehavior: "when_no_match"
         contentHandling: "CONVERT_TO_TEXT"
 components: {}

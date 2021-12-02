@@ -71,8 +71,8 @@ Outputs:
     Description: "API Gateway endpoint URL for Prod stage for Division Example function"
     Value: !Sub "https://${DivisionRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide?dividend=6&divisor=2"
   DivisionExampleNonProxyApi:
-    Description: "API Gateway endpoint URL for Prod stage for Division Example Non Proxy function"
-    Value: !Sub "https://${DivisionRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide-non-proxy?dividend=6&divisor=2"
+    Description: "API Gateway endpoint URL for Prod stage for Division Example Non Proxy function (POST)"
+    Value: !Sub "https://${DivisionRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide"
   DivisionExampleFunction:
     Description: "Division Example Lambda Function ARN"
     Value: !GetAtt DivisionExampleFunction.Arn

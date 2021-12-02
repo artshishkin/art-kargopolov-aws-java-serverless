@@ -1,0 +1,32 @@
+###  Correct request
+POST {{serverUri}}/Prod/divide
+Accept: application/json
+
+{
+"dividend":6,
+"divisor":2
+}
+
+###  Empty body
+POST {{serverUri}}/Prod/divide
+Accept: application/json
+
+###  ArithmeticException
+POST {{serverUri}}/Prod/divide
+Accept: application/json
+
+{
+"dividend":6,
+"divisor":0
+}
+
+###  NumberFormatException
+POST {{serverUri}}/Prod/divide
+Accept: application/json
+
+{
+"dividend":"NaN_formatError",
+"divisor":2
+}
+
+
