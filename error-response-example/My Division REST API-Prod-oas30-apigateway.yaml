@@ -1,0 +1,29 @@
+openapi: "3.0.1"
+info:
+  title: "My Division REST API"
+  description: "API to study Error Handling in Serverless Apps"
+  version: "1.0"
+servers:
+- url: "https://1wt9plz7ig.execute-api.eu-north-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: "/Prod"
+paths:
+  /divide:
+    get:
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:eu-north-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-north-1:392971033516:function:error-response-example-DivisionExampleFunction-Z6x0CMJFGBQq/invocations"
+        passthroughBehavior: "when_no_match"
+    post:
+      x-amazon-apigateway-integration:
+        type: "aws"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:eu-north-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-north-1:392971033516:function:error-response-example-DivisionExampleNonProxyFunc-2a7DMsQiu9kq/invocations"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_match"
+        contentHandling: "CONVERT_TO_TEXT"
+components: {}

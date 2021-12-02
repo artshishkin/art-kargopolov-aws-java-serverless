@@ -827,6 +827,25 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  customize error message
     -  API Gateway -> Gateway Responses -> 5XX -> customize like in #89
 
+#####  95. Deploy and disable Proxy Integration
+
+-  `sam build`
+-  `sam deploy`
+-  API Gateway -> `/divide` -> POST -> Integration Request
+-  Use Lambda Proxy integration -> uncheck
+-  To import changes to SAM:
+    -  Deploy API -> Prod
+    -  Export -> OpenAPI 3 ->
+    -  Export as OpenAPI 3 + API Gateway Extensions
+    -  `My Division REST API-Prod-oas30-apigateway.yaml`
+    -  modify SAM template to include OpenAPI 3  
+-  `sam delete`
+-  `sam build`
+-  `sam deploy` -> OK
+-  **BUT**
+-  URIs give wrong URLs of lambdas
+    -  `uri: "arn:aws:apigateway:eu-north-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-north-1:392971033516:function:error-response-example-DivisionExampleNonProxyFunc-2a7DMsQiu9kq/invocations"`
+    -  `error-response-example-DivisionExampleNonProxyFunc-2a7DMsQiu9kq` does not match real -> need to be fixed
 
 
 

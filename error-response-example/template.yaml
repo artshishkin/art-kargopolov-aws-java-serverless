@@ -57,6 +57,11 @@ Resources:
       StageName: Prod
       Name: My Division REST API
       Description: API to study Error Handling in Serverless Apps
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: My Division REST API-Prod-oas30-apigateway.yaml
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
