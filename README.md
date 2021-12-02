@@ -863,5 +863,21 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  Add 500
     -  Lambda Error RegEx: `.*Exception.*`
 
+#####  97. Mapping template for 500 status code
+
+-  Integration Response -> 500
+-  Mapping Templates -> Add -> application/json
+```json
+{
+  "errorMessage":$input.json('$.errorMessage'),
+  "type":$input.json('$.errorType'),
+  "requestTime": "$context.requestTime",
+  "stackTrace":$input.json('$.stackTrace'),
+}
+```
+
+
+
+
 
     
