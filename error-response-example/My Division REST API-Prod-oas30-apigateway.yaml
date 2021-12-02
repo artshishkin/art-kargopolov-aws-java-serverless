@@ -14,13 +14,15 @@ paths:
       x-amazon-apigateway-integration:
         type: "aws_proxy"
         httpMethod: "POST"
-        uri: "arn:aws:apigateway:eu-north-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-north-1:392971033516:function:error-response-example-DivisionExampleFunction-Z6x0CMJFGBQq/invocations"
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DivisionExampleFunction.Arn}/invocations' #DivisionExampleFunction.Arn
         passthroughBehavior: "when_no_match"
     post:
       x-amazon-apigateway-integration:
         type: "aws"
         httpMethod: "POST"
-        uri: "arn:aws:apigateway:eu-north-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-north-1:392971033516:function:error-response-example-DivisionExampleNonProxyFunc-2a7DMsQiu9kq/invocations"
+        uri:
+          Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DivisionExampleNonProxyFunction.Arn}/invocations' #DivisionExampleNonProxyFunction.Arn
         responses:
           default:
             statusCode: "200"
