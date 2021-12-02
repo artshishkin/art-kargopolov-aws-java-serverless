@@ -847,7 +847,21 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  `uri: "arn:aws:apigateway:eu-north-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-north-1:392971033516:function:error-response-example-DivisionExampleNonProxyFunc-2a7DMsQiu9kq/invocations"`
     -  `error-response-example-DivisionExampleNonProxyFunc-2a7DMsQiu9kq` does not match real -> need to be fixed
 
+#####  96. Response code & Lambda Error Regex for 500 status code
 
+-  API Gateway -> `/divide` -> POST -> Method Response
+-  Add Responses:
+    -  200, 500
+-  Test
+    -  with body: `{"dividend":"20","divisor":"3"}`
+        -  OK
+    -  with empty request body
+        -  Status: 200
+        -  "errorMessage": "Exception: null"
+        -  "errorType": "net.shyshkin.study.aws.serverless.error.MyException"
+-  Integration response
+    -  Add 500
+    -  Lambda Error RegEx: `.*Exception.*`
 
 
     
