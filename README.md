@@ -886,5 +886,7 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  "type":"net.shyshkin.study.aws.serverless.error.MyException"
     -  modify Lambda Error Regex to `.*(error|by zero|Exception).*`
 
+#####  99. Handle multiple exceptions
 
-    
+-  Because we wrapped Exception in our own Exception
+-  Simplify Lambda Error Regex to `Exception: .*`
