@@ -27,6 +27,7 @@ Resources:
         DivisionExample:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
+            RestApiId: !Ref DivisionRestApi
             Path: /divide
             Method: get
 
@@ -46,9 +47,16 @@ Resources:
         DefaultErrorResponseExample:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
+            RestApiId: !Ref DivisionRestApi
             Path: /divide
             Method: post
 
+  DivisionRestApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Name: My Division REST API
+      Description: API to study Error Handling in Serverless Apps
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -56,10 +64,10 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   DivisionExampleApi:
     Description: "API Gateway endpoint URL for Prod stage for Division Example function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide?dividend=6&divisor=2"
+    Value: !Sub "https://${DivisionRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide?dividend=6&divisor=2"
   DivisionExampleNonProxyApi:
     Description: "API Gateway endpoint URL for Prod stage for Division Example Non Proxy function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide-non-proxy?dividend=6&divisor=2"
+    Value: !Sub "https://${DivisionRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/divide-non-proxy?dividend=6&divisor=2"
   DivisionExampleFunction:
     Description: "Division Example Lambda Function ARN"
     Value: !GetAtt DivisionExampleFunction.Arn
