@@ -21,7 +21,7 @@ public class DivisionExampleNonProxyFunction implements RequestHandler<Map<Strin
             int result = dividend / divisor;
 
             response.put("dividend", dividend);
-            response.put("divisor", dividend);
+            response.put("divisor", divisor);
             response.put("result", result);
         } catch(Exception ex) {
             throw new MyException("Exception: " + ex.getMessage(), ex.getCause());
