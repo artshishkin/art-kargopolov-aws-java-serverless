@@ -890,3 +890,104 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 
 -  Because we wrapped Exception in our own Exception
 -  Simplify Lambda Error Regex to `Exception: .*`
+
+####  12 Refactor data-transformation-example
+
+#####  12.1 Create Request and Response Models
+
+-  CreateUserRequestModel
+```json
+{
+   "$schema": "http://json-schema.org/draft-04/schema#",
+   "title": "Create User Model Request Schema",
+   "type": "object",
+   "properties": {
+      "userFirstName": {
+         "type": "string",
+         "description": "User's First Name"
+      },
+      "userLastName": {
+         "type": "string",
+         "description": "User's Last Name"
+      },
+      "userEmail": {
+         "type": "string",
+         "description": "User's Email"
+      },
+      "userPassword": {
+         "type": "string",
+         "description": "User's Password"
+      },
+      "userRepeatPassword": {
+         "type": "string",
+         "description": "User's Password Repeat"
+      },
+      "userAge": {
+         "type": "integer",
+         "description": "User's age"
+      }      
+   },
+   "required": [ "userFirstName", "userLastName", "userEmail", "userPassword", "userRepeatPassword" ]
+}
+```
+-  CreateUserResponseModel
+    -  copy from `CreateUserResponseMappingTemplate`
+-  CreateUserLambdaInput
+    -  copy from `CreateUserRequestMappingTemplate`
+```json
+{
+   "$schema": "http://json-schema.org/draft-04/schema#",
+   "title": "Create User Lambda Input Model Schema",
+   "type": "object",
+   "properties": {
+      "firstName": {
+         "type": "string",
+         "description": "User's First Name"
+      },
+      "lastName": {
+         "type": "string",
+         "description": "User's Last Name"
+      },
+      "email": {
+         "type": "string",
+         "description": "User's Email"
+      },
+      "password": {
+         "type": "string",
+         "description": "User's Password"
+      },
+      "repeatPassword": {
+         "type": "string",
+         "description": "User's Password Repeat"
+      },
+      "age": {
+         "type": "integer",
+         "description": "User's age"
+      }      
+   },
+   "required": [ "firstName", "lastName", "email", "password", "repeatPassword" ]
+}
+```    
+-  CreateUserLambdaOutput
+```json
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Create User Output Lambda Model Schema",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique user identifier"
+    }
+  }
+}
+```    
