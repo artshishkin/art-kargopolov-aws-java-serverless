@@ -1,0 +1,4 @@
+GET {{serverUri}}/version
+Accept: application/json
+
+###
