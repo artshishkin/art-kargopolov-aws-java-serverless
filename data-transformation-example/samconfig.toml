@@ -6,6 +6,5 @@ stack_name = "data-transformation-example"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1alt62pqr870u"
 s3_prefix = "data-transformation-example"
 region = "eu-north-1"
-confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
