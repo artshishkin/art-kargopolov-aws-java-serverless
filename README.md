@@ -991,3 +991,17 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
   }
 }
 ```    
+
+#####  12.2 Provide New Models into API Gateway
+
+-  CreateUserRequestModel
+    -  Method Request -> Request Body -> Add model -> application/json -> CreateUserRequestModel
+    -  Request Validator -> Validate body
+-  CreateUserResponseModel
+    -  Method Response -> 200
+    -  Replace `CreateUserResponseMappingTemplate` with `CreateUserResponseModel`
+-  Delete unused
+    -  CreateUserRequestMappingTemplate
+    -  CreateUserResponseMappingTemplate
+
+
