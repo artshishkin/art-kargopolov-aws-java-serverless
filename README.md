@@ -1009,3 +1009,11 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Deploy API -> Prod   
 -  Export -> Export as OpenAPI 3 + API Gateway Extensions
 
+#####  12.4 Include OpenAPI 3 Specification into SAM
+
+-  add `AWS::Serverless::Api` resource to SAM template
+-  resolve URIs in OpenAPI 3 document
+
+
+
+

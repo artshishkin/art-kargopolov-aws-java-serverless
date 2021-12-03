@@ -27,8 +27,21 @@ Resources:
         PhotoAppUsers:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
+            RestApiId: !Ref DataTransformationExampleApi
             Path: /users
             Method: post
+
+  DataTransformationExampleApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Name: Data Transformation API
+      Description: Data Transformation Example REST API (API Gateway)
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: data-transformation-example-Prod-oas30-apigateway.yaml
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -36,7 +49,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   DataTransformationExampleApi:
     Description: "API Gateway endpoint URL for Prod stage for DataTransformationExample function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/users"
+    Value: !Sub "https://${DataTransformationExampleApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/users"
   PostHandlerFunction:
     Description: "PostHandlerFunction ARN"
     Value: !GetAtt PostHandlerFunction.Arn
