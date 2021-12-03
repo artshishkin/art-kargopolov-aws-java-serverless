@@ -1,0 +1,96 @@
+openapi: "3.0.1"
+info:
+  title: "data-transformation-example"
+  version: "1.0"
+servers:
+- url: "https://37lcme5ghg.execute-api.eu-north-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: "/Prod"
+paths:
+  /users:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequestModel"
+        required: true
+      responses:
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateUserResponseModel"
+      x-amazon-apigateway-request-validator: "Validate body"
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:eu-north-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-north-1:392971033516:function:data-transformation-example-PostHandlerFunction-uLqE6ODfNlil/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "#set($inputRoot = $input.path('$'))\r\n{\r\n  \"\
+                userFirstName\" : \"$inputRoot.firstName\",\r\n  \"userLastName\"\
+                \ : \"$inputRoot.lastName\",\r\n  \"userEmail\" : \"$inputRoot.email\"\
+                ,\r\n  \"userId\" : \"$inputRoot.id\"\r\n}"
+        requestTemplates:
+          application/json: "#set($inputRoot = $input.path('$'))\r\n{\r\n\"firstName\"\
+            \ : \"$util.escapeJavaScript($inputRoot.userFirstName)\",\r\n\"lastName\"\
+            \ : \"$util.escapeJavaScript($inputRoot.userLastName)\",\r\n\"email\"\
+            \ : \"$util.escapeJavaScript($inputRoot.userEmail)\",\r\n\"password\"\
+            \ : \"$util.escapeJavaScript($inputRoot.userPassword)\",\r\n\"repeatPassword\"\
+            \ : \"$util.escapeJavaScript($inputRoot.userRepeatPassword)\",\r\n\"age\"\
+            \ : $inputRoot.userAge,\r\n\"secretKey\": \"$util.escapeJavaScript($input.params('userSecretKey'))\"\
+            \r\n}"
+        passthroughBehavior: "when_no_templates"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+components:
+  schemas:
+    CreateUserRequestModel:
+      title: "Create User Model Request Schema"
+      required:
+      - "userEmail"
+      - "userFirstName"
+      - "userLastName"
+      - "userPassword"
+      - "userRepeatPassword"
+      type: "object"
+      properties:
+        userFirstName:
+          type: "string"
+          description: "User's First Name"
+        userLastName:
+          type: "string"
+          description: "User's Last Name"
+        userEmail:
+          type: "string"
+          description: "User's Email"
+        userPassword:
+          type: "string"
+          description: "User's Password"
+        userRepeatPassword:
+          type: "string"
+          description: "User's Password Repeat"
+        userAge:
+          type: "integer"
+          description: "User's age"
+    CreateUserResponseModel:
+      title: "Create User Response Model Schema"
+      type: "object"
+      properties:
+        userFirstName:
+          type: "string"
+        userLastName:
+          type: "string"
+        userEmail:
+          type: "string"
+        userId:
+          type: "string"
+          description: "Unique user identifier"
+x-amazon-apigateway-request-validators:
+  Validate body:
+    validateRequestParameters: false
+    validateRequestBody: true

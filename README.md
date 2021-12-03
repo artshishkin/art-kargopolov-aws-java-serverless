@@ -1004,4 +1004,8 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  CreateUserRequestMappingTemplate
     -  CreateUserResponseMappingTemplate
 
+#####  12.3 Generate OpenAPI 3 Specification
+
+-  Deploy API -> Prod   
+-  Export -> Export as OpenAPI 3 + API Gateway Extensions
 
