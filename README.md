@@ -1022,4 +1022,17 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  curl -> OK
 -  Missing `CreateUserLambdaInput` and `CreateUserLambdaOutput` in API Gateway Models 
 
+####  Section 13: Lambda Function Versions
+
+#####  103. Publishing a new version
+
+-  before deploy new version
+    -  `Code version Latest. Pred-production Deployment version: $LATEST`
+-  deploy new version
+-  Lambda console
+    -  `lambda-functions-play-LambdaVersionFunction-6D8bnnn9xq7S`
+    -  Versions -> `This function does not have any published versions.`
+    -  Publish new version
+-  Versions -> 1
+    -  ARN with version: `:1`
 
