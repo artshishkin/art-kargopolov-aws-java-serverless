@@ -1104,5 +1104,14 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  OK
 -  return `dev` back to $LATEST     
 
+#####  110. Shift traffic between two lambda versions
+
+-  Lambda -> Aliases -> prod -> Edit
+    -  Weighted alias
+    -  Additional version: `2`
+    -  Weight: 5% -> 10% -> 20% -> 50% -> 80% -> 100%
+-  Test with 30%
+    -  `Code version '1'. Pred-production Deployment version: 1`  ~ 7:10
+    -  `Code version '2'. Pred-production Deployment version: 2`  ~ 3:10
 
 
