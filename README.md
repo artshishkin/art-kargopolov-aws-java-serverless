@@ -1036,3 +1036,16 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Versions -> 1
     -  ARN with version: `:1`
 
+#####  104. Assign new version to API endpoint
+
+-  API Gateway console -> Integration Request
+-  Lambda Function -> add `:1`
+-  Test it in Gateway test client
+    -  `Code version '1'. Pred-production Deployment version: 1`
+-  Delete version:
+    -  API Gateway console -> Integration Request -> Lambda Function -> edit
+-  Test it in Gateway test client
+    -  `Code version '1'. Pred-production Deployment version: $LATEST`
+
+
+
