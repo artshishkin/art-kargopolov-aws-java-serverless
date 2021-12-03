@@ -1091,4 +1091,18 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Deploy API with `dev` lambda to Dev Stage
     -  create new Stage -> `Dev`
     
+#####  109. Trying how the Lambda Alias works
+
+-  curl to `Dev` stage -> ok
+-  curl to `Prod` stage -> ok
+-  Change alias function version
+    -  Lambda Function -> Aliases ->
+    -  Select `dev` (tick) -> Edit
+    -  Version 1 -> Save
+-  curl `Dev`
+    -  Code version '1'. Pred-production Deployment version: 1
+    -  OK
+-  return `dev` back to $LATEST     
+
+
 
