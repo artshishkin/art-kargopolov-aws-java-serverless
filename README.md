@@ -1014,6 +1014,12 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  add `AWS::Serverless::Api` resource to SAM template
 -  resolve URIs in OpenAPI 3 document
 
+#####  12.5 Test how it works
 
+-  `sam delete`
+-  `sam build`
+-  `sam deploy`
+-  curl -> OK
+-  Missing `CreateUserLambdaInput` and `CreateUserLambdaOutput` in API Gateway Models 
 
 
