@@ -91,6 +91,48 @@ components:
         userId:
           type: "string"
           description: "Unique user identifier"
+    CreateUserLambdaInput:
+      title: "Create User Lambda Input Model Schema"
+      required:
+        - "email"
+        - "firstName"
+        - "lastName"
+        - "password"
+        - "repeatPassword"
+      type: "object"
+      properties:
+        firstName:
+          type: "string"
+          description: "User's First Name"
+        lastName:
+          type: "string"
+          description: "User's Last Name"
+        email:
+          type: "string"
+          description: "User's Email"
+        password:
+          type: "string"
+          description: "User's Password"
+        repeatPassword:
+          type: "string"
+          description: "User's Password Repeat"
+        age:
+          type: "integer"
+          description: "User's age"
+    CreateUserLambdaOutput:
+      title: "Create User Output Lambda Model Schema"
+      type: "object"
+      properties:
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+        email:
+          type: "string"
+        id:
+          type: "string"
+          description: "Unique user identifier"
+
 x-amazon-apigateway-request-validators:
   Validate body:
     validateRequestParameters: false
