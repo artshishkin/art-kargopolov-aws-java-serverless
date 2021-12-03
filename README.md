@@ -1062,4 +1062,22 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Test in Gateway client
     -  `Code version '2'. Pred-production Deployment version: 2`
 
+####  Section 14: Lambda Function Aliases
+
+#####  107. Creating an Alias
+
+-  Lambda console -> Aliases -> 
+-  Create alias
+    -  Name: prod
+    -  Description: Points to the function version that is used in production
+    -  Version: 1
+    -  Save
+-  Function ARN ends with `:prod`
+-  Create new alias
+    -  Name: dev
+    -  Description: Points to the $LATEST version of Lambda
+    -  Version: $LATEST
+    -  Save
+
+
 
