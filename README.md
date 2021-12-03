@@ -1079,5 +1079,16 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  Version: $LATEST
     -  Save
 
+#####  108. Using Alias in API Gateway
 
+-  Integration Request
+    -  make use of prod version
+    -  test -> `Code version '1'. Pred-production Deployment version: 1`
+-  Deploy API with `prod` alias to Prod Stage       
+-  Integration Request
+    -  make use of dev version
+    -  test -> `Code version '2'. Pred-production Deployment version: $LATEST`
+-  Deploy API with `dev` lambda to Dev Stage
+    -  create new Stage -> `Dev`
+    
 
