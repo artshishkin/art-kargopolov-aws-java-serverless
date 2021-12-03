@@ -1047,5 +1047,19 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Test it in Gateway test client
     -  `Code version '1'. Pred-production Deployment version: $LATEST`
 
+#####  105. Publish version #2
+
+-  Make API Gateway use lambda version 1
+-  Change Lambda Function source code
+-  build deploy
+-  Lambda -> Publish new version
+    -  Description: Code version 2
+-  Test in Gateway test client:
+    -  `Code version '1'. Pred-production Deployment version: 1`
+-  Test in curl (Prod stage)
+    -  `Code version '2'. Pred-production Deployment version: $LATEST`
+-  Change Integration Request to Lambda version 2
+-  Test in Gateway client
+    -  `Code version '2'. Pred-production Deployment version: 2`
 
 
