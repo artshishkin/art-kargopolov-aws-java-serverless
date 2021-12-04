@@ -13,6 +13,8 @@ import java.util.Map;
  */
 public class DivisionExampleFunction implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
+    private static final int VERSION = 4;
+
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
 
         Map<String, String> headers = new HashMap<>();
@@ -31,13 +33,18 @@ public class DivisionExampleFunction implements RequestHandler<APIGatewayProxyRe
                     "{"
                             + "\"dividend\":" + dividend + ","
                             + "\"divisor\":" + divisor + ","
-                            + "\"result\":" + result +
+                            + "\"result\":" + result + ","
+                            + "\"version\":" + VERSION +
                             "}"
             );
-        } catch (ArithmeticException | NumberFormatException ex) {
+        } catch (Exception ex) {
             response
                     .withStatusCode(500)
-                    .withBody("{\"error\": \"" + ex.getMessage().replace('"', '\'') + "\"}");
+                    .withBody("{" +
+                            "\"error\": \"" + ex.getMessage().replace('"', '\'') + "\"" + "," +
+                            "\"version\":" + VERSION +
+                            "}"
+                    );
         }
         return response;
     }

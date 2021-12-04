@@ -1151,7 +1151,16 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Stages -> prod -> Canary -> Promote Canary
 -  Delete Canary
 
+#####  13.1 SAM deploy Canary 
 
+-  [Deploying serverless applications gradually](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/automating-updates-to-serverless-apps.html)
+-  [Safe Lambda deployments](https://github.com/aws/serverless-application-model/blob/master/docs/safe_lambda_deployments.rst)   
+-  Modify Source Code for `/divide` -> GET Lambda DivisionExampleFunction
+-  modify SAM template
+-  Modify OpenAPI specification for Gateway endpoint `/divide`(GET) to point to lambda with alias `live` (**IMPORTANT**)    
+-  `sam build`
+-  `sam deploy`
+-  `curl`
 
 
 
