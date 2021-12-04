@@ -32,7 +32,7 @@ Resources:
             Method: get
       AutoPublishAlias: live
       DeploymentPreference:
-        Type: Canary10Percent5Minutes
+        Type: Linear10PercentEvery1Minute
 
   DivisionExampleNonProxyFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction

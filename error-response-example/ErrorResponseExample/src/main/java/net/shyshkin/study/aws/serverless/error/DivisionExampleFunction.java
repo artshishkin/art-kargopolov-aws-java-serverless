@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class DivisionExampleFunction implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    private static final int VERSION = 4;
+    private static final int VERSION = 5;
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
 
