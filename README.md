@@ -1146,5 +1146,12 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 ```
 -  Deploy API -> prod (Canary Enabled)
 
+#####  115. Promoting and Deleting Canary
+
+-  Stages -> prod -> Canary -> Promote Canary
+-  Delete Canary
+
+
+
 
 
