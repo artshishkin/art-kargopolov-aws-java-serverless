@@ -34,7 +34,7 @@ public class DivisionExampleFunction implements RequestHandler<APIGatewayProxyRe
                             + "\"dividend\":" + dividend + ","
                             + "\"divisor\":" + divisor + ","
                             + "\"result\":" + result + ","
-                            + "\"version\":" + VERSION +
+                            + "\"version\":" + context.getFunctionVersion() +
                             "}"
             );
         } catch (Exception ex) {
@@ -42,7 +42,7 @@ public class DivisionExampleFunction implements RequestHandler<APIGatewayProxyRe
                     .withStatusCode(500)
                     .withBody("{" +
                             "\"error\": \"" + ex.getMessage().replace('"', '\'') + "\"" + "," +
-                            "\"version\":" + VERSION +
+                            "\"version\":" + context.getFunctionVersion() +
                             "}"
                     );
         }
