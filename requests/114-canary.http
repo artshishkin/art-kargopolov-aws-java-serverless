@@ -1,0 +1,5 @@
+GET https://bfvrrtg4l2.execute-api.eu-north-1.amazonaws.com/prod/users?count=2
+Accept: application/json
+Authorization: FooBuzzBar
+
+
