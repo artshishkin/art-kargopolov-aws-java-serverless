@@ -1122,3 +1122,29 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Deploy API -> Stage `prod` (create new one)
 -  Canary section -> Create Canary
 -  Percentage of requests directed to Canary -> 10% (40% for tests)
+
+#####  113. Deploy changes to Canary
+
+-  User Mock API -> `/users` -> GET -> Integration Response
+-  200 -> Mapping Templates -> application/json -> modify template
+```json
+{
+   "content":[
+     {
+        "firstname": "Art",
+        "lastname": "Shyshkin",
+        "userId": "12345"
+     },
+     {
+        "firstname": "Kate",
+        "lastname": "Shyshkina",
+        "userId": "12346"
+     }
+   ],
+   "count":$input.params('count')
+}
+```
+-  Deploy API -> prod (Canary Enabled)
+
+
+
