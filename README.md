@@ -1114,4 +1114,11 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  `Code version '1'. Pred-production Deployment version: 1`  ~ 7:10
     -  `Code version '2'. Pred-production Deployment version: 2`  ~ 3:10
 
+####  Section 15: Canary Release Deployment
 
+#####  112. Create Canary
+
+-  Use previously created MockAPI
+-  Deploy API -> Stage `prod` (create new one)
+-  Canary section -> Create Canary
+-  Percentage of requests directed to Canary -> 10% (40% for tests)
