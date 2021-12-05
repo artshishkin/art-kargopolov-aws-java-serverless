@@ -1191,6 +1191,16 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  copy `Decrypt secrets snippet` -> paste to source code
 -  copy encrypted values to the SAM template.yaml 
 
+#####  126. Trying how it works
+
+-  `sam build`
+-  `sam deploy`
+-  Test in Lambda test console    
+    -  Lambda -> Test -> apigateway-aws-proxy -> Test -> OK
+-  Test in Prod stage
+    -  curl https://mdvgkbrbzg.execute-api.eu-north-1.amazonaws.com/Prod/hello
+    -  90% - old version
+    -  10% - new -> OK
 
 
 
