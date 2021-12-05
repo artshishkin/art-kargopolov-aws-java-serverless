@@ -1164,3 +1164,8 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 
 #####  13.2 SAM deploy Linear (like BlueGreen deployment)
 
+####  Section 16: AWS Lambda Environment Variables
+
+#####  121. Creating Lambda environment variables in AWS Web Console
+
+-  Lambda Console -> Configuration -> Environment Variables -> Edit
