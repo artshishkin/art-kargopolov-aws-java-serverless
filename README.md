@@ -1219,5 +1219,12 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
             -  Not Mutable
         -  Next Step
 
+#####  129. User pool - Policies step
+
+-  password strength -> for study simplicity uncheck all
+-  other leave default
+
+
+
 
 
