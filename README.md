@@ -1224,6 +1224,15 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  password strength -> for study simplicity uncheck all
 -  other leave default
 
+#####  130. User pool - MFA and verifications step
+
+-  MFA -> Off
+-  How will a user be able to recover their account -> Email Only
+-  Which attributes do you want to verify -> Email
+-  You must provide a role to allow Amazon Cognito to send SMS messages -> **NO** (won't use SMS)
+
+
+
 
 
 
