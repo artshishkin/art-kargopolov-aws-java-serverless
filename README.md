@@ -1243,6 +1243,15 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  Maximum number of email messages sent daily per AWS account	50
 -  Verification type: Code
 
+#####  132. User pool - Tags and Devices steps
+
+-  Tags
+    -  Add Tag
+    -  Name: photo-app-users-api-pool-tag
+    -  Purpose: Photo App API Development
+    -  Email: d.art.shishkin@gmail.com
+-  Devices
+    -  Do you want to remember your user's devices -> NO
 
 
 
