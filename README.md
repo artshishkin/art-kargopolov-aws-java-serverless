@@ -1231,7 +1231,17 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Which attributes do you want to verify -> Email
 -  You must provide a role to allow Amazon Cognito to send SMS messages -> **NO** (won't use SMS)
 
+#####  131. User pool - Message customizations step
 
+-  Simple Email Service (SES) Region: eu-north-1
+-  FROM email address ARN
+    -  Default
+    -  or Verified address (d.art.shishkin@gmail.com for me) -> and SES for mailing
+-  Do you want to send emails through your Amazon SES Configuration?
+    -  **No**
+    -  but
+    -  Maximum number of email messages sent daily per AWS account	50
+-  Verification type: Code
 
 
 
