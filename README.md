@@ -1169,3 +1169,20 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 #####  121. Creating Lambda environment variables in AWS Web Console
 
 -  Lambda Console -> Configuration -> Environment Variables -> Edit
+
+#####  123. Creating new encryption key
+
+-  KMS
+-  Customer managed keys -> Create key -> Symmetric
+    -  Alias: `photo-app-users-api-encryption-key`
+    -  Define key administrative permissions
+        -  Key administrators: art_admin
+    -  Define key usage permissions
+        -  This account: 
+            -  art_admin
+            -  environment-variables-exa-EnvironmentVariablesExam-1DUASDC6FDX4H (Role for my lambda to decrypt key)
+    -  Next -> Finish
+
+
+
+
