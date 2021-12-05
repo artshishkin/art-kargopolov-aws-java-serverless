@@ -1253,6 +1253,20 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  Devices
     -  Do you want to remember your user's devices -> NO
 
+#####  133. User pool - Creating an App Client
+
+-  Add an app client
+    -  App client name: photo-app-users-pool-client
+    -  Generate client secret: checked
+    -  Auth Flows Configuration
+        -  ALLOW_ADMIN_USER_PASSWORD_AUTH: false
+        -  ALLOW_CUSTOM_AUTH: true
+        -  ALLOW_USER_PASSWORD_AUTH: true
+        -  ALLOW_USER_SRP_AUTH: true
+        -  ALLOW_REFRESH_TOKEN_AUTH: true
+    -  Set attribute read and write permissions
+    -  Create app client
+
 
 
 
