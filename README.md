@@ -1183,6 +1183,15 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
             -  environment-variables-exa-EnvironmentVariablesExam-1DUASDC6FDX4H (Role for my lambda to decrypt key)
     -  Next -> Finish
 
+#####  124. Encrypting environment variables with AWS KMS key
+
+-  Lambda -> Environment variables -> Edit
+-  Encryption Configuration -> Enable helpers for encryption in transit
+-  Encrypt -> `photo-app-users-api-encryption-key`
+-  copy `Decrypt secrets snippet` -> paste to source code
+-  copy encrypted values to the SAM template.yaml 
+
+
 
 
 

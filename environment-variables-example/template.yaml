@@ -11,7 +11,7 @@ Globals:
     Timeout: 20
     Environment:
       Variables:
-        MY_GLOBAL_VARIABLE: Global Env Var 1
+        MY_GLOBAL_VARIABLE: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgEnjSIDSo3/HcorlAcO50xcAAAAbjBsBgkqhkiG9w0BBwagXzBdAgEAMFgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM6w6+3HU74uwwhuAxAgEQgCsAPFzqNLi+nyv9ba/jX0J4sBbXmLY94hMQ7X5heN9kfdGQyb+ie1/zu94z
 Resources:
   EnvironmentVariablesExampleFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -24,9 +24,9 @@ Resources:
       MemorySize: 512
       Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
         Variables:
-          MY_VARIABLE: Environment Variable 1
-          MY_COGNITO_USER_POOL_ID: ABC1234
-          MY_COGNITO_CLIENT_APP_SECRET: HJDHJDHJD
+          MY_VARIABLE: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgH0FFKwiu2sa+tprVHFlREIAAAAdDByBgkqhkiG9w0BBwagZTBjAgEAMF4GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMDnhBroWvjgaqVbH1AgEQgDE64Sp12MzWQFZsrN6px7M9ls6aOXkSobLDBWlXDa8Hm5BA9efmYC/Ct1jEMDcUAhkL
+          MY_COGNITO_USER_POOL_ID: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgGoM6ELfTu++UCpEYiPwprmAAAAZTBjBgkqhkiG9w0BBwagVjBUAgEAME8GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMzMbTZJ/gsUEdTlzYAgEQgCJJp4zJK9jRTZWYC+LK7iyhhPFap3C0PqOq10zoRNTG8KD4
+          MY_COGNITO_CLIENT_APP_SECRET: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgF5wsDM4B4wY6p5S9eVk9nQAAAAZzBlBgkqhkiG9w0BBwagWDBWAgEAMFEGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMwwWNrT6pWTnHeVQUAgEQgCSxB77UkCzxbhJJzbyY+W0j96cPO71e/gT5qpsuSk7HKNumblc=
       Events:
         EnvironmentVariablesExample:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
