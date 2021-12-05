@@ -1202,6 +1202,22 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  90% - old version
     -  10% - new -> OK
 
+####  Section 17: Cognito user pools - Implementing User Sign-up
+
+#####  128. User pool - Name and Attributes step
+
+-  Cognito -> Manage User Pools
+-  Create a user pool
+    -  Pool name: `photo-app-users-api-pool`
+    -  Step through settings
+        -  Email address
+        -  Required list of attributes
+        -  Add custom attribute (for study purpose): 
+            -  userId
+            -  Min length: 8
+            -  Max Length: 256
+            -  Not Mutable
+        -  Next Step
 
 
 
