@@ -1,8 +1,11 @@
 package net.shyshkin.study.aws.serverless.cognito.service;
 
 import com.google.gson.JsonObject;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpResponse;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -12,8 +15,16 @@ import java.util.UUID;
 
 public class CognitoUserService {
 
+    private CognitoIdentityProviderClient cognitoIdentityProviderClient;
+
+    public CognitoUserService(String region) {
+        this.cognitoIdentityProviderClient = CognitoIdentityProviderClient
+                .builder()
+                .region(Region.of(region))
+                .build();
+    }
+
     public JsonObject createUser(JsonObject user, String appClientId, String appClientSecret) {
-        JsonObject storedUserDetails = new JsonObject();
 
         String email = user.get("email").getAsString();
         String password = user.get("password").getAsString();
@@ -38,7 +49,15 @@ public class CognitoUserService {
                 .secretHash(secretHash)     // Generate client secret was checked
                 .build();
 
-        return storedUserDetails;
+        SignUpResponse signUpResponse = cognitoIdentityProviderClient.signUp(signUpRequest);
+
+        JsonObject createUserResult = new JsonObject();
+        createUserResult.addProperty("isSuccessful", signUpResponse.sdkHttpResponse().isSuccessful());
+        createUserResult.addProperty("statusCode", signUpResponse.sdkHttpResponse().statusCode());
+        createUserResult.addProperty("cognitoUserId", signUpResponse.userSub());
+        createUserResult.addProperty("isConfirmed", signUpResponse.userConfirmed());
+
+        return createUserResult;
     }
 
     public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
@@ -57,8 +76,6 @@ public class CognitoUserService {
             throw new RuntimeException("Error while calculating ");
         }
     }
-
-
 
 
 }
