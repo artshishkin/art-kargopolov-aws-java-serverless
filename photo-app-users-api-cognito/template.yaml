@@ -9,6 +9,14 @@ Description: >
 Globals:
   Function:
     Timeout: 20
+    Runtime: java11
+    Architectures:
+      - x86_64
+    MemorySize: 512
+    Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+      Variables:
+        MY_COGNITO_POOL_APP_CLIENT_ID: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgFAhfT2NKorraULlJLIwq12AAAAeDB2BgkqhkiG9w0BBwagaTBnAgEAMGIGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMvEMBxZLUKvLZlXKUAgEQgDVv9FPnjC4aSFj63gWnfIJAAK3HpCO68xs/z6Ex+0e7m1WJEdAo+jvo2rjpeBdNLMoYmtZLUg==
+        MY_COGNITO_POOL_APP_CLIENT_SECRET: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgE/BLB8zAME+oP0CjaKgK0/AAAAlTCBkgYJKoZIhvcNAQcGoIGEMIGBAgEAMHwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM/DHUIqp+mDQsHsp8AgEQgE/yEBlHwZ7pxYqLRl1hB1Qxh+zjGOgK1zgdqGXj3H/IKTHeRkpYkq56jZO9AooqBZzbXJLNhiGDinA/RFMwhs8fvzfNlqYNncoseOWRGlzF
 
 Resources:
   CreateUserHandlerFunction:
@@ -16,19 +24,23 @@ Resources:
     Properties:
       CodeUri: PhotoAppUsersApiCognito
       Handler: net.shyshkin.study.aws.serverless.cognito.CreateUserHandler::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-        Variables:
-          MY_COGNITO_POOL_APP_CLIENT_ID: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgFAhfT2NKorraULlJLIwq12AAAAeDB2BgkqhkiG9w0BBwagaTBnAgEAMGIGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMvEMBxZLUKvLZlXKUAgEQgDVv9FPnjC4aSFj63gWnfIJAAK3HpCO68xs/z6Ex+0e7m1WJEdAo+jvo2rjpeBdNLMoYmtZLUg==
-          MY_COGNITO_POOL_APP_CLIENT_SECRET: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgE/BLB8zAME+oP0CjaKgK0/AAAAlTCBkgYJKoZIhvcNAQcGoIGEMIGBAgEAMHwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM/DHUIqp+mDQsHsp8AgEQgE/yEBlHwZ7pxYqLRl1hB1Qxh+zjGOgK1zgdqGXj3H/IKTHeRkpYkq56jZO9AooqBZzbXJLNhiGDinA/RFMwhs8fvzfNlqYNncoseOWRGlzF
       Events:
         CreateUser:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /users
+            Method: post
+
+  ConfirmUserHandlerFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: PhotoAppUsersApiCognito
+      Handler: net.shyshkin.study.aws.serverless.cognito.ConfirmUserHandler::handleRequest
+      Events:
+        ConfirmUser:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /confirm
             Method: post
 
 Outputs:
@@ -37,7 +49,10 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   CreateUserApi:
     Description: "API Gateway endpoint URL for Prod stage for Create User Handler function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/users"
+  ConfirmUserApi:
+    Description: "API Gateway endpoint URL for Prod stage for Confirm User Handler function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/confirm"
   CreateUserHandlerFunction:
     Description: "CreateUserHandler Lambda Function ARN"
     Value: !GetAtt CreateUserHandlerFunction.Arn
