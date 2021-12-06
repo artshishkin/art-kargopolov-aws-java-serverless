@@ -1267,6 +1267,10 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  Set attribute read and write permissions
     -  Create app client
 
+#####  140. Generating Secret Hash value
 
-
+-  Cognito -> `photo-app-users-api-pool` -> App clients -> Show details
+    -  App client id
+    -  App client secret (copy it)
+-  [Computing SecretHash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash)
 
