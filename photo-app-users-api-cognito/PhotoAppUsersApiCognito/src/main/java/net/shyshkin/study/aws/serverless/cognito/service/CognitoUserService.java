@@ -37,7 +37,7 @@ public class CognitoUserService {
         AttributeType emailAttribute = AttributeType.builder().name("email").value(email).build();
         AttributeType nameAttribute = AttributeType.builder().name("name").value(firstName + " " + lastName).build();
 
-        AttributeType userIdAttribute = AttributeType.builder().name("customer::userId").value(userId).build();
+        AttributeType userIdAttribute = AttributeType.builder().name("custom:userId").value(userId).build();
 
         String secretHash = calculateSecretHash(appClientId, appClientSecret, email);
 

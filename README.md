@@ -1274,3 +1274,34 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  App client secret (copy it)
 -  [Computing SecretHash values](https://docs.aws.amazon.com/cognito/latest/developerguide/signing-up-users-in-your-app.html#cognito-user-pools-computing-secret-hash)
 
+#####  143. User Sign-up. Trying how it works.
+
+-  Modify to match correct values 
+    -  MY_COGNITO_POOL_APP_CLIENT_ID
+    -  MY_COGNITO_POOL_APP_CLIENT_SECRET
+-  build and deploy
+-  Test with fake body
+```json
+{
+    "email":"kate@example.com",
+    "password":"12345678",
+    "firstName":"Art",
+    "lastName":"Shyshkin"
+}
+```
+-  OK
+```json
+{
+  "isSuccessful": true,
+  "statusCode": 200,
+  "cognitoUserId": "bd13ef5e-5d1e-4c44-be09-6af0a7a845ff",
+  "isConfirmed": false
+}
+```
+-  Check in Cognito that the user was created
+-  Try to create user once again
+    -  Status: 500
+    -  `An account with the given email already exists.`
+
+
+
