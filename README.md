@@ -1339,6 +1339,13 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  `photo-app-users-api-cogni-ConfirmUserHandlerFuncti-11CHARRFAF5IZ`
     -  like previously CreateUserHandlerFunction
 
+#####  151. Trying how it works
+
+-  Use [mailinator](https://www.mailinator.com/v4/public/inboxes.jsp) 
+-  inbox `artshyshkin` -> email will be `artshyshkin@mailinator.com`
+-  create [new user](photo-app-users-api-cognito/PhotoAppUsersApiCognito/src/test/resources/create-user.http)
+-  go to mailinator.com -> fetch confirmation code
+-  confirm using [http client request](photo-app-users-api-cognito/PhotoAppUsersApiCognito/src/test/resources/confirm.http)
 
 
 
