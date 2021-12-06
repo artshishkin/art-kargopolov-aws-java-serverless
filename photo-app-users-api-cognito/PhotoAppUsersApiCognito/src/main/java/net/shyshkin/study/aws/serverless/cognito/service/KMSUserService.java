@@ -7,8 +7,6 @@ import com.amazonaws.util.Base64;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 public class KMSUserService {
 
@@ -18,15 +16,17 @@ public class KMSUserService {
     private static String decryptKey(String key) {
         System.out.println("Decrypting key: " + key);
         byte[] encryptedKey = Base64.decode(System.getenv(key));
-        Map<String, String> encryptionContext = new HashMap<>();
-        encryptionContext.put("LambdaFunctionName",
-                System.getenv("AWS_LAMBDA_FUNCTION_NAME"));
+//        Map<String, String> encryptionContext = new HashMap<>();
+//        encryptionContext.put("LambdaFunctionName",
+//                System.getenv("AWS_LAMBDA_FUNCTION_NAME"));
 
         AWSKMS client = AWSKMSClientBuilder.defaultClient();
 
         DecryptRequest request = new DecryptRequest()
                 .withCiphertextBlob(ByteBuffer.wrap(encryptedKey))
-                .withEncryptionContext(encryptionContext);
+//                .withEncryptionContext(encryptionContext)
+                //we did not encrypt through AWS Console with using Function Name
+                ;
 
         ByteBuffer plainTextKey = client.decrypt(request).getPlaintext();
         return new String(plainTextKey.array(), StandardCharsets.UTF_8);
