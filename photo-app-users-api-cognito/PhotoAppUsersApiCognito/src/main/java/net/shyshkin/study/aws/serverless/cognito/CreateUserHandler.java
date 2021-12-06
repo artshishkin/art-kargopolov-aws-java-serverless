@@ -8,6 +8,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.shyshkin.study.aws.serverless.cognito.service.CognitoUserService;
+import net.shyshkin.study.aws.serverless.cognito.service.KMSUserService;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 
 import java.util.HashMap;
@@ -24,8 +25,8 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
 
     public CreateUserHandler() {
         this.cognitoUserService = new CognitoUserService(System.getenv("AWS_REGION"));
-        this.appClientId = System.getenv("MY_COGNITO_POOL_APP_CLIENT_ID");
-        this.appClientSecret = System.getenv("MY_COGNITO_POOL_APP_CLIENT_SECRET");
+        this.appClientId = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_ID;
+        this.appClientSecret = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_SECRET;
     }
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
@@ -47,7 +48,7 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
             response
                     .withStatusCode(200)
                     .withBody(createUserResult.toString());
-        }catch (AwsServiceException ex){
+        } catch (AwsServiceException ex) {
             String errorMessage = ex.awsErrorDetails().errorMessage();
             logger.log(errorMessage);
             response

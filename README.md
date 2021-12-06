@@ -1303,5 +1303,24 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  Status: 500
     -  `An account with the given email already exists.`
 
+#####  16.1 Encrypting Client Id and Client Password
+
+1.  Encrypt clientId and clientPassword 
+    -  through Lambda -> Configuration -> Env Vars -> Enable helpers for encryption in transit
+    -  Encrypt
+2.  Modify source code -> add KMS support
+3.  Modify CMK (customer managed key) usage permissions like in #123
+    -  KMS -> CMK -> `photo-app-users-api-encryption-key`
+    -  Key policy -> Edit
+    -  For `"Sid": "Allow use of the key"` and `"Sid": "Allow attachment of persistent resources"`
+    -  attach lambda function Role ARN
+    -  `arn:aws:iam::392971033516:role/photo-app-users-api-cogni-CreateUserHandlerFunctio-M10JPCPYZHE4`
+    -  or Key Users -> Add
+4.  Test it
+    -  `Status: 200`
+    -  `Latency: 7352 ms`
+    -  `REPORT RequestId: e9b4192a-cc41-463d-96cd-8921264a7594	Duration: 2454.61 ms	Billed Duration: 2455 ms	Memory Size: 512 MB	Max Memory Used: 176 MB	Init Duration: 4622.15 ms`
+
+
 
 
