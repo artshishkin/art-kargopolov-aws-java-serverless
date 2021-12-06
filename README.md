@@ -1332,3 +1332,13 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  encrypt once again
 -  modify template file with new values
 
+#####  150. Updating Encryption & Decryption KMS Key
+
+-  KMS -> Customer managed keys -> `photo-app-users-api-encryption-key` -> 
+-  Key users -> Add -> Role for ConfirmUserHandlerFunction
+    -  `photo-app-users-api-cogni-ConfirmUserHandlerFuncti-11CHARRFAF5IZ`
+    -  like previously CreateUserHandlerFunction
+
+
+
+
