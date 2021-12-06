@@ -1321,6 +1321,14 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  `Latency: 7352 ms`
     -  `REPORT RequestId: e9b4192a-cc41-463d-96cd-8921264a7594	Duration: 2454.61 ms	Billed Duration: 2455 ms	Memory Size: 512 MB	Max Memory Used: 176 MB	Init Duration: 4622.15 ms`
 
+####  Section 18: Amazon Cognito- Implementing Confirm User Account
 
+#####  148. Encrypting environment variables
 
+-  create file secrets
+-  insert client id value  
+-  `aws kms encrypt --plaintext fileb://secrets.txt --key-id "alias/photo-app-users-api-encryption-key"`
+-  insert client secret
+-  encrypt once again
+-  modify template file with new values
 
