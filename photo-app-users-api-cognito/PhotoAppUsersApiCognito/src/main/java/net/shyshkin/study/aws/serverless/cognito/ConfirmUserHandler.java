@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.shyshkin.study.aws.serverless.cognito.service.CognitoUserService;
 import net.shyshkin.study.aws.serverless.cognito.service.KMSUserService;
+import net.shyshkin.study.aws.serverless.cognito.service.SerializerService;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 
 public class ConfirmUserHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
@@ -43,15 +44,23 @@ public class ConfirmUserHandler implements RequestHandler<APIGatewayProxyRequest
         } catch (AwsServiceException ex) {
             String errorMessage = ex.awsErrorDetails().errorMessage();
             logger.log(errorMessage);
+
+            var errorResponse = new ErrorResponse(errorMessage);
+            var respBody = SerializerService.instance().toJson(errorResponse);
+
             response
                     .withStatusCode(ex.statusCode())
-                    .withBody(errorMessage);
+                    .withBody(respBody);
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();
             logger.log(errorMessage);
+
+            var errorResponse = new ErrorResponse(errorMessage);
+            var respBody = SerializerService.instance().toJson(errorResponse);
+
             response
                     .withStatusCode(500)
-                    .withBody(errorMessage);
+                    .withBody(respBody);
         }
 
         return response;

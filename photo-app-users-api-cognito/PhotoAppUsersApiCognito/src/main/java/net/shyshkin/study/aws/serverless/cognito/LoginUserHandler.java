@@ -4,12 +4,11 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.shyshkin.study.aws.serverless.cognito.service.CognitoUserService;
 import net.shyshkin.study.aws.serverless.cognito.service.KMSUserService;
+import net.shyshkin.study.aws.serverless.cognito.service.SerializerService;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 
 import java.util.Map;
@@ -50,9 +49,9 @@ public class LoginUserHandler implements RequestHandler<APIGatewayProxyRequestEv
             String errorMessage = ex.awsErrorDetails().errorMessage();
             logger.log(errorMessage);
 
-            var errorResponse = new ErrorResponse("Error took place: " + errorMessage);
+            var errorResponse = new ErrorResponse(errorMessage);
 
-            var respBody = new Gson().toJson(errorResponse);
+            var respBody = SerializerService.instance().toJson(errorResponse);
             response
                     .withStatusCode(ex.statusCode())
                     .withBody(respBody)
@@ -63,7 +62,7 @@ public class LoginUserHandler implements RequestHandler<APIGatewayProxyRequestEv
 
             var errorResponse = new ErrorResponse(errorMessage);
 
-            var respBody = new GsonBuilder().serializeNulls().create().toJson(errorResponse);
+            var respBody = SerializerService.instance().toJson(errorResponse);
             response
                     .withStatusCode(500)
                     .withBody(respBody)

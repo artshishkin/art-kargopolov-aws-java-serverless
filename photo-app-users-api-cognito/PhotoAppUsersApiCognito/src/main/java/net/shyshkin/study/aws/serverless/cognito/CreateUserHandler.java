@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.shyshkin.study.aws.serverless.cognito.service.CognitoUserService;
 import net.shyshkin.study.aws.serverless.cognito.service.KMSUserService;
+import net.shyshkin.study.aws.serverless.cognito.service.SerializerService;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 
 import java.util.HashMap;
@@ -51,9 +52,13 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
         } catch (AwsServiceException ex) {
             String errorMessage = ex.awsErrorDetails().errorMessage();
             logger.log(errorMessage);
+
+            var errorResponse = new ErrorResponse(errorMessage);
+            var respBody = SerializerService.instance().toJson(errorResponse);
+
             response
                     .withStatusCode(500)
-                    .withBody(errorMessage);
+                    .withBody(respBody);
         }
         return response;
     }
