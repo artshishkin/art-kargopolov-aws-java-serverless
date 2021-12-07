@@ -14,3 +14,11 @@ Content-Type: application/json
   "email":"kateshyshkina@mailinator.com",
   "password":"wrong"
 }
+
+### Login PASSWORD is null
+POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/login
+Content-Type: application/json
+
+{
+  "email":"kateshyshkina@mailinator.com"
+}

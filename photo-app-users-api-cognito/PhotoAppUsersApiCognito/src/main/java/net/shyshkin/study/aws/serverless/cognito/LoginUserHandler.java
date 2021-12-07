@@ -4,6 +4,8 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.shyshkin.study.aws.serverless.cognito.service.CognitoUserService;
@@ -47,19 +49,24 @@ public class LoginUserHandler implements RequestHandler<APIGatewayProxyRequestEv
         } catch (AwsServiceException ex) {
             String errorMessage = ex.awsErrorDetails().errorMessage();
             logger.log(errorMessage);
-            var respBody = new JsonObject();
-            respBody.addProperty("message", errorMessage);
-            respBody.addProperty("statusCode", ex.statusCode());
+
+            var errorResponse = new ErrorResponse("Error took place: " + errorMessage);
+
+            var respBody = new Gson().toJson(errorResponse);
             response
                     .withStatusCode(ex.statusCode())
-                    .withBody(respBody.toString())
+                    .withBody(respBody)
             ;
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();
             logger.log(errorMessage);
+
+            var errorResponse = new ErrorResponse(errorMessage);
+
+            var respBody = new GsonBuilder().serializeNulls().create().toJson(errorResponse);
             response
                     .withStatusCode(500)
-                    .withBody("{\"message\": \"" + errorMessage + "\"}")
+                    .withBody(respBody)
             ;
         }
 
