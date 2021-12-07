@@ -3,15 +3,13 @@ package net.shyshkin.study.aws.serverless.cognito.service;
 import com.google.gson.JsonObject;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.ConfirmSignUpRequest;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Map;
 import java.util.UUID;
 
 public class CognitoUserService {
@@ -82,6 +80,45 @@ public class CognitoUserService {
         confirmUserResult.addProperty("statusCode", confirmSignUpResponse.sdkHttpResponse().statusCode());
 
         return confirmUserResult;
+    }
+
+    /**
+     * @param appClientId Client ID of application to pass to Cognito service
+     * @param appClientSecret Client Secret
+     * @param email User's Email
+     * @param password User's Password
+     * @return Json result of authentication
+     */
+    public JsonObject loginUser(String appClientId,
+                                        String appClientSecret,
+                                        String email,
+                                        String password) {
+
+        String secretHash = calculateSecretHash(appClientId, appClientSecret, email);
+
+        Map<String, String> authParams = Map.of(
+                "USERNAME",email,
+                "PASSWORD",password,
+                "SECRET_HASH",secretHash
+        );
+        var authRequest = InitiateAuthRequest.builder()
+                .clientId(appClientId)
+                .authFlow(AuthFlowType.USER_PASSWORD_AUTH)
+                .authParameters(authParams)
+                .build();
+
+        var authResponse = cognitoIdentityProviderClient.initiateAuth(authRequest);
+
+        JsonObject loginUserResult = new JsonObject();
+        loginUserResult.addProperty("isSuccessful", authResponse.sdkHttpResponse().isSuccessful());
+        loginUserResult.addProperty("statusCode", authResponse.sdkHttpResponse().statusCode());
+        if (authResponse.sdkHttpResponse().isSuccessful()) {
+            var authenticationResult = authResponse.authenticationResult();
+            loginUserResult.addProperty("accessToken", authenticationResult.accessToken());
+            loginUserResult.addProperty("idToken", authenticationResult.idToken());
+            loginUserResult.addProperty("refreshToken", authenticationResult.refreshToken());
+        }
+        return loginUserResult;
     }
 
     public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
