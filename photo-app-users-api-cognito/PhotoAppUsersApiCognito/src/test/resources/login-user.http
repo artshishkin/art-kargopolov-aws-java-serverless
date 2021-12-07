@@ -6,4 +6,11 @@ Content-Type: application/json
   "password":"12345678"
 }
 
-###
+### Login Wrong PASSWORD
+POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/login
+Content-Type: application/json
+
+{
+  "email":"kateshyshkina@mailinator.com",
+  "password":"wrong"
+}

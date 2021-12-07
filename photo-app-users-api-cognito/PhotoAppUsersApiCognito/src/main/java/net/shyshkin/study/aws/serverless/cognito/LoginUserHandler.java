@@ -47,15 +47,20 @@ public class LoginUserHandler implements RequestHandler<APIGatewayProxyRequestEv
         } catch (AwsServiceException ex) {
             String errorMessage = ex.awsErrorDetails().errorMessage();
             logger.log(errorMessage);
+            var respBody = new JsonObject();
+            respBody.addProperty("message", errorMessage);
+            respBody.addProperty("statusCode", ex.statusCode());
             response
                     .withStatusCode(ex.statusCode())
-                    .withBody(errorMessage);
+                    .withBody(respBody.toString())
+            ;
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();
             logger.log(errorMessage);
             response
                     .withStatusCode(500)
-                    .withBody(errorMessage);
+                    .withBody("{\"message\": \"" + errorMessage + "\"}")
+            ;
         }
 
 
