@@ -1,6 +1,8 @@
 package net.shyshkin.study.aws.serverless.cognito.service;
 
 import com.google.gson.JsonObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.*;
@@ -14,9 +16,17 @@ import java.util.UUID;
 
 public class CognitoUserService {
 
+    private static final Logger log = LoggerFactory.getLogger(CognitoUserService.class);
+
     private CognitoIdentityProviderClient cognitoIdentityProviderClient;
 
-    public CognitoUserService(String region) {
+    private static final CognitoUserService INSTANCE = new CognitoUserService(System.getenv("AWS_REGION"));
+
+    public static CognitoUserService instance() {
+        return INSTANCE;
+    }
+
+    private CognitoUserService(String region) {
         this.cognitoIdentityProviderClient = CognitoIdentityProviderClient
                 .builder()
                 .region(Region.of(region))
@@ -123,12 +133,19 @@ public class CognitoUserService {
 
     public JsonObject addUserToGroup(String userName, String groupName, String userPoolId) {
 
+        log.info("addUserToGroup({}, {}, {})", userName, groupName, userPoolId);
+
         AdminAddUserToGroupRequest request = AdminAddUserToGroupRequest.builder()
                 .username(userName)
                 .groupName(groupName)
                 .userPoolId(userPoolId)
                 .build();
+
+        log.info("Start calling cognitoIdentityProviderClient.adminAddUserToGroup");
+
         AdminAddUserToGroupResponse toGroupResponse = cognitoIdentityProviderClient.adminAddUserToGroup(request);
+
+        log.info("Finished adding user to the group: {}", toGroupResponse);
 
         JsonObject addToGroupResult = new JsonObject();
         addToGroupResult.addProperty("isSuccessful", toGroupResponse.sdkHttpResponse().isSuccessful());

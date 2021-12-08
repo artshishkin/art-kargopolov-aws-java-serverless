@@ -20,7 +20,7 @@ public class LoginUserHandler implements RequestHandler<APIGatewayProxyRequestEv
     private final String appClientSecret;
 
     public LoginUserHandler() {
-        this.cognitoUserService = new CognitoUserService(System.getenv("AWS_REGION"));
+        this.cognitoUserService = CognitoUserService.instance();
         this.appClientId = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_ID;
         this.appClientSecret = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_SECRET;
     }
