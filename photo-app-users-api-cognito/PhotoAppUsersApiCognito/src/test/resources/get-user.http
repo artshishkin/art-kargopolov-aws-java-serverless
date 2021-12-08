@@ -1,5 +1,5 @@
 ### Login first
-POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/login
+POST https:// w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/login
 Content-Type: application/json
 
 {
@@ -13,27 +13,27 @@ client.global.set("accessToken", response.body.accessToken);
 %}
 
 ### Get User - Correct
-GET https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/me
+GET https:// w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/users/me
 Content-Type: application/json
 Authorization: Bearer {{idToken}}
 AccessToken: {{accessToken}}
 
 ### Get User - Without Any Tokens
-GET https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/me
+GET https:// w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/users/me
 Content-Type: application/json
 
 ### Get User - Without Id Token
-GET https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/me
+GET https:// w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/users/me
 Content-Type: application/json
 AccessToken: {{accessToken}}
 
 ### Get User - Without Access Token
-GET https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/me
+GET https:// w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/users/me
 Content-Type: application/json
 Authorization: Bearer {{idToken}}
 
 ### Get User - Wrong Access Token
-GET https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/me
+GET https:// w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/users/me
 Content-Type: application/json
 Authorization: Bearer {{idToken}}
 AccessToken: eyJraYvL8bUw
