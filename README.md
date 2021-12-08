@@ -1369,5 +1369,29 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  **or**
     -  Groups -> Admins -> Add users
  
+####  Section 21: Cognito Authorizer. Using JWT Access Tokens.
+
+#####  166. Secure API endpoint with Cognito Authorizer
+
+2 ways:
+-  SAM template
+-  API Gateway Console:
+    -  APIs -> photo-app-users-api-cognito-...
+    -  Authorizers -> Create New Authorizer
+        -  Name: `PhotoAppUsersApiAuthorizer`
+        -  Type: Cognito
+        -  Cognito User Pool: photo-app-user-api-pool
+        -  Token Source: Authorization (also may be custom)
+        -  Token Validation - leave empty (may be RegEx to validate before requesting Cognito)  
+    -  Test
+        -  Authorization: `<<idToken>>`
+        -  **or**
+        -  Authorization: `Bearer <<idToken>>`
+-  Turn on Authorization for the `/users/me` 
+    -  API Gateway -> `/users/me` -> GET -> Method Request ->
+    -  Authorization: PhotoAppUsersApiAuthorizer
+-  Deploy API -> Prod
+
+
 
 
