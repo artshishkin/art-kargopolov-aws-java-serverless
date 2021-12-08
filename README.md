@@ -1358,7 +1358,7 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  IAM Console -> Roles -> Create Role ->
     -  Web identity
         -  Identity provider: Amazon Cognito
-        -  Identity Pool ID: eu-north-1_2ZKDZLmj4
+        -  Identity Pool ID: <pool id>
     -  Next -> Permissions -> Skip for now
     -  Tags -> Skip
     -  Role Name: `PhotoAppUsers-DynamoDbAdmin-Role`
