@@ -1401,3 +1401,11 @@ API Gateway console
 -  Request Validator: Validate query string parameters and headers    
 -  Deploy API
 -  Test using Http Client (Intellij or Postman)
+
+#####  172.1 Import Open API definition into SAM template - Export Open API 3 from Gateway console 
+
+-  Deploy API -> Prod
+-  Export -> Export as OpenAPI 3 + API Gateway Extensions
+
+
+
