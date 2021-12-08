@@ -1347,5 +1347,27 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
 -  go to mailinator.com -> fetch confirmation code
 -  confirm using [http client request](photo-app-users-api-cognito/PhotoAppUsersApiCognito/src/test/resources/confirm.http)
 
+####  Section 20: Amazon Cognito - Add User to a Group
+
+#####  158. Creating a User Group
+
+-  Cognito -> User Pools -> `photo-app-users-api-pool`
+-  Users and Groups -> Groups -> Create Group
+    -  Name: `Admins`
+    -  IAM Role -> Create a new Role ->
+-  IAM Console -> Roles -> Create Role ->
+    -  Web identity
+        -  Identity provider: Amazon Cognito
+        -  Identity Pool ID: eu-north-1_2ZKDZLmj4
+    -  Next -> Permissions -> Skip for now
+    -  Tags -> Skip
+    -  Role Name: `PhotoAppUsers-DynamoDbAdmin-Role`
+    -  Create role
+-  Attach Role to `Admins` Group -> Create Group
+-  Attach users to the Users Group
+    -  Users -> Select any user -> Add to Group
+    -  **or**
+    -  Groups -> Admins -> Add users
+ 
 
 
