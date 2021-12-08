@@ -1,0 +1,31 @@
+### Add To Group - Correct
+POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/235d6bea-e3f1-4c6e-994a-7c544f7b2d9a/add-to-group
+Content-Type: application/json
+
+{
+  "userGroup":"Admins"
+}
+
+### Add To Group - Wrong Group
+POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/235d6bea-e3f1-4c6e-994a-7c544f7b2d9a/add-to-group
+Content-Type: application/json
+
+{
+  "userGroup":"AbsentGroup"
+}
+
+### Add To Group - No Group
+POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/235d6bea-e3f1-4c6e-994a-7c544f7b2d9a/add-to-group
+Content-Type: application/json
+
+{
+}
+
+### Add To Group - Wrong user id
+POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users/{{$uuid}}/add-to-group
+Content-Type: application/json
+
+{
+  "userGroup":"Admins"
+}
+
