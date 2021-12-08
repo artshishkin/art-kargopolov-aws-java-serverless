@@ -16,6 +16,7 @@ public class KMSUserService {
 
     public static final String MY_COGNITO_POOL_APP_CLIENT_ID = decryptKey("MY_COGNITO_POOL_APP_CLIENT_ID");
     public static final String MY_COGNITO_POOL_APP_CLIENT_SECRET = decryptKey("MY_COGNITO_POOL_APP_CLIENT_SECRET");
+    public static final String MY_COGNITO_POOL_ID = decryptKey("MY_COGNITO_POOL_ID");;
 
     private static String decryptKey(String key) {
 
