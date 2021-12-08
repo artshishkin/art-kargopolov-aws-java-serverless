@@ -154,6 +154,38 @@ public class CognitoUserService {
         return addToGroupResult;
     }
 
+    public JsonObject getUser(String accessToken) {
+
+        if (accessToken != null && accessToken.length() > 10)
+            log.info("getUser({}...{})", accessToken.substring(0, 4), accessToken.substring(accessToken.length() - 4));
+        else
+            log.info("getUser({})", accessToken);
+
+        GetUserRequest getUserRequest = GetUserRequest.builder()
+                .accessToken(accessToken)
+                .build();
+
+        log.info("Start calling cognitoIdentityProviderClient.getUser");
+
+        var getUserResponse = cognitoIdentityProviderClient.getUser(getUserRequest);
+
+        log.info("Finished getting user data: {}", getUserResponse);
+
+        JsonObject getUserResult = new JsonObject();
+        getUserResult.addProperty("isSuccessful", getUserResponse.sdkHttpResponse().isSuccessful());
+        getUserResult.addProperty("statusCode", getUserResponse.sdkHttpResponse().statusCode());
+
+        if (getUserResponse.sdkHttpResponse().isSuccessful()) {
+            JsonObject userDetails = new JsonObject();
+            getUserResult.addProperty("username", getUserResponse.username());
+            getUserResponse
+                    .userAttributes()
+                    .forEach(attribute -> userDetails.addProperty(attribute.name(), attribute.value()));
+            getUserResult.add("user", userDetails);
+        }
+        return getUserResult;
+    }
+
     public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
         final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
 
