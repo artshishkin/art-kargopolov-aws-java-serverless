@@ -4,17 +4,23 @@ import com.amazonaws.services.kms.AWSKMS;
 import com.amazonaws.services.kms.AWSKMSClientBuilder;
 import com.amazonaws.services.kms.model.DecryptRequest;
 import com.amazonaws.util.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
 public class KMSUserService {
 
+    private static final Logger log = LoggerFactory.getLogger(KMSUserService.class);
+
     public static final String MY_COGNITO_POOL_APP_CLIENT_ID = decryptKey("MY_COGNITO_POOL_APP_CLIENT_ID");
     public static final String MY_COGNITO_POOL_APP_CLIENT_SECRET = decryptKey("MY_COGNITO_POOL_APP_CLIENT_SECRET");
 
     private static String decryptKey(String key) {
-        System.out.println("Decrypting key: " + key);
+
+        log.info("Decrypting key: " + key);
+
         byte[] encryptedKey = Base64.decode(System.getenv(key));
 //        Map<String, String> encryptionContext = new HashMap<>();
 //        encryptionContext.put("LambdaFunctionName",
