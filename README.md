@@ -1392,6 +1392,12 @@ X-Amz-Cf-Id: oEW1u9D_q0RgaZI8kyS6oxCfpG42legVyury3E_ZF9zPtZq5FfahtA==
     -  Authorization: PhotoAppUsersApiAuthorizer
 -  Deploy API -> Prod
 
+#####  171. Validating required HTTP header
 
-
-
+API Gateway console
+-  Resources -> `/users/me` -> GET
+-  Request Method -> HTTP Request Headers -> Add header
+    -  AccessToken -> Required
+-  Request Validator: Validate query string parameters and headers    
+-  Deploy API
+-  Test using Http Client (Intellij or Postman)
