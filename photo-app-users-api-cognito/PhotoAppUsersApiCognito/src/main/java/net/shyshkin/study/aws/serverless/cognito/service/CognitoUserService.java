@@ -83,23 +83,23 @@ public class CognitoUserService {
     }
 
     /**
-     * @param appClientId Client ID of application to pass to Cognito service
+     * @param appClientId     Client ID of application to pass to Cognito service
      * @param appClientSecret Client Secret
-     * @param email User's Email
-     * @param password User's Password
+     * @param email           User's Email
+     * @param password        User's Password
      * @return Json result of authentication
      */
     public JsonObject loginUser(String appClientId,
-                                        String appClientSecret,
-                                        String email,
-                                        String password) {
+                                String appClientSecret,
+                                String email,
+                                String password) {
 
         String secretHash = calculateSecretHash(appClientId, appClientSecret, email);
 
         Map<String, String> authParams = Map.of(
-                "USERNAME",email,
-                "PASSWORD",password,
-                "SECRET_HASH",secretHash
+                "USERNAME", email,
+                "PASSWORD", password,
+                "SECRET_HASH", secretHash
         );
         var authRequest = InitiateAuthRequest.builder()
                 .clientId(appClientId)
@@ -119,6 +119,22 @@ public class CognitoUserService {
             loginUserResult.addProperty("refreshToken", authenticationResult.refreshToken());
         }
         return loginUserResult;
+    }
+
+    public JsonObject addUserToGroup(String userName, String groupName, String userPoolId) {
+
+        AdminAddUserToGroupRequest request = AdminAddUserToGroupRequest.builder()
+                .username(userName)
+                .groupName(groupName)
+                .userPoolId(userPoolId)
+                .build();
+        AdminAddUserToGroupResponse toGroupResponse = cognitoIdentityProviderClient.adminAddUserToGroup(request);
+
+        JsonObject addToGroupResult = new JsonObject();
+        addToGroupResult.addProperty("isSuccessful", toGroupResponse.sdkHttpResponse().isSuccessful());
+        addToGroupResult.addProperty("statusCode", toGroupResponse.sdkHttpResponse().statusCode());
+
+        return addToGroupResult;
     }
 
     public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
