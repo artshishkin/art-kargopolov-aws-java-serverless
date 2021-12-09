@@ -28,7 +28,7 @@ Resources:
 #          Parameters:
 #            Location: Lambda Authorizer-Prod-oas30-apigateway.yaml
       Auth:
-        DefaultAuthorizer: PhotoAppUsersLambdaAuthorizer
+#        DefaultAuthorizer: PhotoAppUsersLambdaAuthorizer
         Authorizers:
           PhotoAppUsersLambdaAuthorizer:
             FunctionPayloadType: REQUEST
@@ -50,6 +50,13 @@ Resources:
             Path: /users/{userName}
             Method: get
             RestApiId: !Ref MyApi
+            Auth:
+              Authorizer: PhotoAppUsersLambdaAuthorizer
+            RequestParameters:
+              - method.request.header.Authorization:
+                  Required: true
+                  Caching: false
+
   LambdaAuthorizerFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
