@@ -22,11 +22,11 @@ Resources:
       StageName: Prod
       Name: Lambda Authorizer
       Description: Lambda Authorizer Example API
-#      DefinitionBody:
-#        Fn::Transform:
-#          Name: AWS::Include
-#          Parameters:
-#            Location: Lambda Authorizer-Prod-oas30-apigateway.yaml
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: Lambda Authorizer-Prod-oas30-apigateway.yaml
       Auth:
 #        DefaultAuthorizer: PhotoAppUsersLambdaAuthorizer
         Authorizers:
