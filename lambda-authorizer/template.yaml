@@ -22,11 +22,21 @@ Resources:
       StageName: Prod
       Name: Lambda Authorizer
       Description: Lambda Authorizer Example API
-      DefinitionBody:
-        Fn::Transform:
-          Name: AWS::Include
-          Parameters:
-            Location: Lambda Authorizer-Prod-oas30-apigateway.yaml
+#      DefinitionBody:
+#        Fn::Transform:
+#          Name: AWS::Include
+#          Parameters:
+#            Location: Lambda Authorizer-Prod-oas30-apigateway.yaml
+      Auth:
+        DefaultAuthorizer: PhotoAppUsersLambdaAuthorizer
+        Authorizers:
+          PhotoAppUsersLambdaAuthorizer:
+            FunctionPayloadType: REQUEST
+            FunctionArn: !GetAtt LambdaAuthorizerFunction.Arn
+            Identity:
+              ReauthorizeEvery: 0
+              Headers:
+                - Authorization
 
   GetUserByUsernameHandlerFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
