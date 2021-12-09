@@ -15,12 +15,18 @@ Globals:
     MemorySize: 512
 
 Resources:
+
   MyApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Prod
       Name: Lambda Authorizer
       Description: Lambda Authorizer Example API
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: Lambda Authorizer-Prod-oas30-apigateway.yaml
 
   GetUserByUsernameHandlerFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
