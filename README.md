@@ -1412,3 +1412,26 @@ API Gateway console
 -  add `AWS::Serverless::Api` resource to SAM template
 -  resolve URIs in OpenAPI 3 document
 
+####  Section 22: Lambda Authorizer - Creating custom Authorizer  
+
+#####  175. Creating Lambda Authorizer in API Gateway
+
+1.  Create Authorizer
+    -  API Gateway -> `Lambda Authorizer` -> Authorizers -> Create
+    -  Name: PhotoAppUsersLambdaAuthorizer
+    -  Lambda Function:  `lambda-authorizer-stack-LambdaAuthorizerFunction-G9RLj7L1lL8e`
+    -  Role: leave empty (AWS will create default role)
+    -  Lambda Event Payload: Request
+    -  Identity Source: Header Authorization
+    -  Caching: disable for development
+    -  Create
+2.  Assign Authorizer to Method
+    -  `/users/{userName}` -> GET -> Method Request
+    -  Authorizer -> PhotoAppUsersLambdaAuthorizer
+3.  Validate Header
+    -  Method Request -> Headers
+    -  Authorization -> Required
+    -  Request Validators -> Validate query string parameters and headers
+
+
+
