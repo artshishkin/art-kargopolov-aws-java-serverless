@@ -1,0 +1,13 @@
+### Correct userName -> Allow
+GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/art_shyshkin
+Accept: application/json
+Authorization: someJwt
+
+### userName -> Deny
+GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/123
+Accept: application/json
+Authorization: someJwt
+
+### Without Header Authorization -> Unauthorized
+GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/art_shyshkin
+Accept: application/json
