@@ -13,6 +13,10 @@ Globals:
     Architectures:
       - x86_64
     MemorySize: 512
+    Environment:
+      Variables:
+        PHOTO_APP_USERS_POOL_ID: eu-north-1_2ZKDZLmj4
+        PHOTO_APP_USERS_APP_CLIENT_ID: 1f2vjc3lv6j8ncn6qnsmd6gq0o
 
 Resources:
 
