@@ -1,13 +1,27 @@
+### Login first
+POST https:// w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/login
+Content-Type: application/json
+
+{
+  "email":"kateshyshkina@mailinator.com",
+  "password":"12345678"
+}
+
+> {%
+client.global.set("idToken", response.body.idToken);
+client.global.set("accessToken", response.body.accessToken);
+%}
+
 ### Correct userName -> Allow
-GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/art_shyshkin
+GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/a7eba4a4-3739-4828-9d91-dc3c885c9c75
 Accept: application/json
-Authorization: someJwt
+Authorization: {{idToken}}
 
 ### userName -> Deny
-GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/123
+GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/a7eba4a4-3739-4828-9d91-dc3c885c9c75
 Accept: application/json
 Authorization: someJwt
 
 ### Without Header Authorization -> Unauthorized
-GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/art_shyshkin
+GET https://rpwl4ow4l8.execute-api.eu-north-1.amazonaws.com/Prod/users/a7eba4a4-3739-4828-9d91-dc3c885c9c75
 Accept: application/json
