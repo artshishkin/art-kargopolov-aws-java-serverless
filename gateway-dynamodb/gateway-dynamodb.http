@@ -1,5 +1,5 @@
 ### Create new comment
-POST  https://ty8zxw16n2.execute-api.eu-north-1.amazonaws.com/Prod/comments
+POST   https://v2a4bsbbn9.execute-api.eu-north-1.amazonaws.com/Prod/comments
 Content-Type: application/json
 Accept: application/json
 
@@ -10,7 +10,7 @@ Accept: application/json
 }
 
 ###
-GET  https://ty8zxw16n2.execute-api.eu-north-1.amazonaws.com/Prod/comments/one-cool-news
+GET   https://v2a4bsbbn9.execute-api.eu-north-1.amazonaws.com/Prod/comments/one-cool-news
 Accept: application/json
 
 ###

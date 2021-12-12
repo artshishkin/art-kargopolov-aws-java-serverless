@@ -13,15 +13,35 @@ Globals:
 Resources:
 
   CommentsTable:
-    Type: AWS::Serverless::SimpleTable
+    Type: AWS::DynamoDB::Table
     Properties:
       TableName: CommentsSAM
-      PrimaryKey:
-        Name: commentId
-        Type: String
+      # A list of attributes that describe the key schema for the DynamoDB table and indexes.
+      AttributeDefinitions:
+        - AttributeName: commentId
+          AttributeType: S
+        - AttributeName: pageId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: commentId
+          KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 2
         WriteCapacityUnits: 2
+      GlobalSecondaryIndexes:
+        - IndexName: pageId-index
+          KeySchema:
+            - AttributeName: pageId
+              KeyType: HASH
+          Projection:
+            ProjectionType: INCLUDE
+            NonKeyAttributes:
+              - pageId
+              - userName
+              - message
+          ProvisionedThroughput:
+            ReadCapacityUnits: 2
+            WriteCapacityUnits: 2
 
   CommentsApi:
     Type: AWS::Serverless::Api
@@ -73,5 +93,5 @@ Resources:
 
 Outputs:
   CommentsApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Description: "API Gateway endpoint URL for Prod stage for Comments API"
     Value: !Sub "https://${CommentsApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/comments/{pageId}"
