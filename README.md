@@ -1433,5 +1433,26 @@ API Gateway console
     -  Authorization -> Required
     -  Request Validators -> Validate query string parameters and headers
 
+####  #26 Using Amazon API Gateway as a proxy for DynamoDB
+
+Follow the Tutorial [Using Amazon API Gateway as a proxy for DynamoDB](https://aws.amazon.com/blogs/compute/using-amazon-api-gateway-as-a-proxy-for-dynamodb/)
+
+#####  26.1 Creating the DynamoDB Table
+
+DynamoDB console
+1.  Create table
+    -  Name: Comments
+    -  Primary key: commentId
+    -  Create
+2.  Create secondary index
+    -  Indexes -> Create Index
+    -  Partition key: pageId
+    -  Attribute projections: Include
+        -  pageId
+        -  userName
+        -  message
+    -  Create index
+    
+        
 
 
