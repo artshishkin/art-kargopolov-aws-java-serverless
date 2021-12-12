@@ -1436,6 +1436,7 @@ API Gateway console
 ####  #26 Using Amazon API Gateway as a proxy for DynamoDB
 
 Follow the Tutorial [Using Amazon API Gateway as a proxy for DynamoDB](https://aws.amazon.com/blogs/compute/using-amazon-api-gateway-as-a-proxy-for-dynamodb/)
+With the reference to the article [Using API Gateway To Get Data From Dynamo DB Without Using AWS Lambda](https://medium.com/@likhita507/using-api-gateway-to-get-data-from-dynamo-db-using-without-using-aws-lambda-e51434a4f5a0)
 
 #####  26.1 Creating the DynamoDB Table
 
@@ -1522,7 +1523,90 @@ Status: 200
 Latency: 71 ms
 Response Body: {}
 ```
-    
 
+#####  26.3 Creating the GET Comments API    
 
-
+1.  Create Get resource endpoint
+    -  Resources -> `/comments` -> Create Resource
+    -  Resource name: `pageId`
+    -  Resource path: `{pageId}`
+    -  Create Method: GET
+    -  Integration Type:
+        -  AWS Service: Dynamo DB
+        -  HTTP Method: POST
+        -  Action: Query
+        -  Execution Role: ARN of Gateway2DynamoDBTutorialRole
+        -  Save
+2.  Modify Execution Role  Policy to Query DynamoDB
+    -  Policies -> `Gateway2DynamoDBTutorial`
+    -  Add new Statement with 
+        -  `"Action": "dynamodb:Query"`
+        -  `"Resource": "arn:aws:dynamodb:eu-north-1:392971033516:table/Comments/**"`
+3.  Create Input Mapping Template
+    -  Integration Request
+    -  Mapping Templates -> Add mapping template
+    -  When there are no templates defined (recommended)
+    -  Content-Type: application/json
+```json
+{
+  "TableName": "Comments",
+  "IndexName": "pageId-index",
+  "KeyConditionExpression": "pageId = :v1",
+  "ExpressionAttributeValues": {
+    ":v1": {
+      "S": "$input.params('pageId')"
+    }
+  }
+}
+```
+4.  Test it through Test client
+    -  Path: {pageId} : `breaking-news-story-01-18-2016`
+    -  Response
+```json
+{
+  "Count": 1,
+  "Items": [
+    {
+      "userName": {
+        "S": "Just Saying Thank You"
+      },
+      "message": {
+        "S": "I really enjoyed this story!!"
+      },
+      "commentId": {
+        "S": "76ea4502-f5d5-4148-bdad-4846b2973dd3"
+      },
+      "pageId": {
+        "S": "breaking-news-story-01-18-2016"
+      }
+    }
+  ],
+  "ScannedCount": 1
+}
+```
+5.  Create Output Mapping Template
+```
+#set($inputRoot = $input.path('$'))
+{
+    "comments": [
+        #foreach($elem in $inputRoot.Items) {
+            "commentId": "$elem.commentId.S",
+            "userName": "$elem.userName.S",
+            "message": "$elem.message.S"
+        }#if($foreach.hasNext),#end
+	#end
+    ]
+}
+```
+6.  Test again
+```json
+{
+  "comments": [
+    {
+      "commentId": "76ea4502-f5d5-4148-bdad-4846b2973dd3",
+      "userName": "Just Saying Thank You",
+      "message": "I really enjoyed this story!!"
+    }
+  ]
+}
+```
