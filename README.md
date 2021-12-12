@@ -1453,6 +1453,76 @@ DynamoDB console
         -  message
     -  Create index
     
-        
+#####  26.2 Creating the POST Comment API        
+
+Amazon API Gateway Console
+1.  Create API
+    -  Name: CommentsApi
+2.  Create Execution role for API Gateway to PutItem to DynamoDB table 
+    -  IAM Console
+    -  Create Policy:
+        -  Service: `DynamoDB`
+        -  Actions: `PutItem`
+        -  Resources: ARN of Comments Table in DynamoDB
+        -  Review policy
+        -  Name: `Gateway2DynamoDBTutorial`
+    -  Create Role:
+        -  Service: API Gateway
+        -  Permissions -> Next -> Next           
+        -  Role Name: `Gateway2DynamoDBTutorialRole`
+        -  Create
+    -  Attach policy to Role:  
+        -  `Gateway2DynamoDBTutorial`
+        -  Attach    
+3.  Creating the Post Comments API
+    -  Create Resource: `/comments`
+    -  Create Method: POST
+    -  Integration type:
+        -  AWS Service: Dynamo DB
+        -  HTTP Method: POST
+        -  Action: PutItem
+        -  Execution Role: ARN of Gateway2DynamoDBTutorialRole
+        -  Save
+4.  Create Input Mapping Template
+    -  Integration Request
+    -  Mapping Templates -> Add mapping template
+    -  When there are no templates defined (recommended)
+    -  Content-Type: application/json
+```json
+{ 
+    "TableName": "Comments",
+    "Item": {
+	"commentId": {
+            "S": "$context.requestId"
+            },
+        "pageId": {
+            "S": "$input.path('$.pageId')"
+            },
+        "userName": {
+            "S": "$input.path('$.userName')"
+        },
+        "message": {
+            "S": "$input.path('$.message')"
+        }
+    }
+}
+```
+5.  Test it through Test client
+```json
+{
+  "pageId":   "breaking-news-story-01-18-2016",
+  "userName": "Just Saying Thank You",
+  "message":  "I really enjoyed this story!!"
+}
+```
+-  Result:
+```
+Request: /comments
+Status: 200
+Latency: 71 ms
+Response Body: {}
+```
+    
+
 
 
