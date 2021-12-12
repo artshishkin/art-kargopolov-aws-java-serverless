@@ -1,0 +1,77 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  gateway-dynamodb
+
+  Sample SAM Template for gateway-dynamodb
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 20
+
+Resources:
+
+  CommentsTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: CommentsSAM
+      PrimaryKey:
+        Name: commentId
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  CommentsApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Name: Comments API
+      Description: Comments API for Gateway-DynamoDB SAM Tutorial
+      Models:
+        CommentCreateRequest:
+          type: object
+          required:
+            - pageId
+            - userName
+            - message
+          properties:
+            pageId:
+              type: string
+            userName:
+              type: integer
+            message:
+              type: string
+        CommentsRetreiveResponse:
+          type: object
+          required:
+            - comments
+          properties:
+            comments:
+              type: object
+              properties:
+                commentId:
+                  type: string
+                userName:
+                  type: integer
+                message:
+                  type: string
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location: CommentsApi-Prod-oas30-apigateway.yaml
+
+      MethodSettings:
+        - ResourcePath: /comments
+          HttpMethod: POST
+          CachingEnabled: false
+        - ResourcePath: /comments/{pageId}
+          HttpMethod: GET
+          CachingEnabled: false
+
+Outputs:
+  CommentsApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${CommentsApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/comments/{pageId}"

@@ -1,0 +1,16 @@
+### Create new comment
+POST  https://ty8zxw16n2.execute-api.eu-north-1.amazonaws.com/Prod/comments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "pageId":   "one-cool-news",
+  "userName": "The great author {{$randomInt}}",
+  "message":  "I really enjoyed this story! {{$uuid}}"
+}
+
+###
+GET  https://ty8zxw16n2.execute-api.eu-north-1.amazonaws.com/Prod/comments/one-cool-news
+Accept: application/json
+
+###

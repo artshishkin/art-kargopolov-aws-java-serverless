@@ -1610,3 +1610,10 @@ Response Body: {}
   ]
 }
 ```
+
+#####  26.5 Creating SAM template for deploying Gateway-DynamoDB    
+
+-  export OpenAPI 3 document
+-  modify policy `Gateway2DynamoDBTutorial` to allow  access to all the tables 
+-  POST method works
+-  GET method (query by secondary index) does not work

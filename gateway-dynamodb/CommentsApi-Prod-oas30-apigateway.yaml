@@ -1,0 +1,78 @@
+openapi: "3.0.1"
+info:
+  title: "CommentsApi"
+  description: "API for Tutorial: Using Amazon API Gateway as a proxy for DynamoDB"
+  version: "2021-12-12T20:20:06Z"
+servers:
+- url: "https://ubqqu9m585.execute-api.eu-north-1.amazonaws.com/{basePath}"
+  variables:
+    basePath:
+      default: "/Prod"
+paths:
+  /comments/{pageId}:
+    get:
+      parameters:
+      - name: "pageId"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::392971033516:role/Gateway2DynamoDBTutorialRole"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:eu-north-1:dynamodb:action/Query"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "#set($inputRoot = $input.path('$'))\r\n{\r\n    \"\
+                comments\": [\r\n        #foreach($elem in $inputRoot.Items) {\r\n\
+                \            \"commentId\": \"$elem.commentId.S\",\r\n           \
+                \ \"userName\": \"$elem.userName.S\",\r\n            \"message\":\
+                \ \"$elem.message.S\"\r\n        }#if($foreach.hasNext),#end\r\n\t\
+                #end\r\n    ]\r\n}"
+        requestTemplates:
+          application/json: "{\r\n  \"TableName\": \"CommentsSAM\",\r\n  \"IndexName\"\
+            : \"pageId-index\",\r\n  \"KeyConditionExpression\": \"pageId = :v1\"\
+            ,\r\n  \"ExpressionAttributeValues\": {\r\n    \":v1\": {\r\n      \"\
+            S\": \"$input.params('pageId')\"\r\n    }\r\n  }\r\n}"
+        passthroughBehavior: "when_no_templates"
+        type: "aws"
+  /comments:
+    post:
+      responses:
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::392971033516:role/Gateway2DynamoDBTutorialRole"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:eu-north-1:dynamodb:action/PutItem"
+        responses:
+          default:
+            statusCode: "200"
+        requestTemplates:
+          application/json: "{ \r\n    \"TableName\": \"CommentsSAM\",\r\n    \"Item\"\
+            : {\r\n\t\"commentId\": {\r\n            \"S\": \"$context.requestId\"\
+            \r\n            },\r\n        \"pageId\": {\r\n            \"S\": \"$input.path('$.pageId')\"\
+            \r\n            },\r\n        \"userName\": {\r\n            \"S\": \"\
+            $input.path('$.userName')\"\r\n        },\r\n        \"message\": {\r\n\
+            \            \"S\": \"$input.path('$.message')\"\r\n        }\r\n    }\r\
+            \n}"
+        passthroughBehavior: "when_no_templates"
+        type: "aws"
+components:
+  schemas:
+    Empty:
+      title: "Empty Schema"
+      type: "object"
