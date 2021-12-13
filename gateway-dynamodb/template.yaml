@@ -15,7 +15,7 @@ Resources:
   CommentsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: CommentsSAM
+#      TableName: CommentsSAM
       # A list of attributes that describe the key schema for the DynamoDB table and indexes.
       AttributeDefinitions:
         - AttributeName: commentId
@@ -95,3 +95,6 @@ Outputs:
   CommentsApi:
     Description: "API Gateway endpoint URL for Prod stage for Comments API"
     Value: !Sub "https://${CommentsApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/comments/{pageId}"
+  DatabaseName:
+    Description: "Name of Comments Table"
+    Value: !Ref CommentsTable

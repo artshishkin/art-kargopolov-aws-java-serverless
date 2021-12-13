@@ -1,7 +1,7 @@
 openapi: "3.0.1"
 info:
-  title: "CommentsApi"
-  description: "API for Tutorial: Using Amazon API Gateway as a proxy for DynamoDB"
+  title: "Comments API"
+  description: "Comments API for Gateway-DynamoDB SAM Tutorial"
   version: "2021-12-12T20:20:06Z"
 servers:
 - url: "https://ubqqu9m585.execute-api.eu-north-1.amazonaws.com/{basePath}"
@@ -39,7 +39,8 @@ paths:
                 \ \"$elem.message.S\"\r\n        }#if($foreach.hasNext),#end\r\n\t\
                 #end\r\n    ]\r\n}"
         requestTemplates:
-          application/json: "{\r\n  \"TableName\": \"CommentsSAM\",\r\n  \"IndexName\"\
+          application/json:
+            Fn::Sub: "{\r\n  \"TableName\": \"${CommentsTable}\",\r\n  \"IndexName\"\
             : \"pageId-index\",\r\n  \"KeyConditionExpression\": \"pageId = :v1\"\
             ,\r\n  \"ExpressionAttributeValues\": {\r\n    \":v1\": {\r\n      \"\
             S\": \"$input.params('pageId')\"\r\n    }\r\n  }\r\n}"
@@ -62,7 +63,8 @@ paths:
           default:
             statusCode: "200"
         requestTemplates:
-          application/json: "{ \r\n    \"TableName\": \"CommentsSAM\",\r\n    \"Item\"\
+          application/json:
+            Fn::Sub: "{ \r\n    \"TableName\": \"${CommentsTable}\",\r\n    \"Item\"\
             : {\r\n\t\"commentId\": {\r\n            \"S\": \"$context.requestId\"\
             \r\n            },\r\n        \"pageId\": {\r\n            \"S\": \"$input.path('$.pageId')\"\
             \r\n            },\r\n        \"userName\": {\r\n            \"S\": \"\
