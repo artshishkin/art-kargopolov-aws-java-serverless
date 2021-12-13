@@ -49,39 +49,39 @@ Resources:
       StageName: Prod
       Name: Comments API
       Description: Comments API for Gateway-DynamoDB SAM Tutorial
-      Models:
-        CommentCreateRequest:
-          type: object
-          required:
-            - pageId
-            - userName
-            - message
-          properties:
-            pageId:
-              type: string
-            userName:
-              type: integer
-            message:
-              type: string
-        CommentsRetreiveResponse:
-          type: object
-          required:
-            - comments
-          properties:
-            comments:
-              type: object
-              properties:
-                commentId:
-                  type: string
-                userName:
-                  type: integer
-                message:
-                  type: string
+#      Models:
+#        CommentCreateRequest:
+#          type: object
+#          required:
+#            - pageId
+#            - userName
+#            - message
+#          properties:
+#            pageId:
+#              type: string
+#            userName:
+#              type: string
+#            message:
+#              type: string
+#        CommentsRetrieveResponse:
+#          type: object
+#          required:
+#            - comments
+#          properties:
+#            comments:
+#              type: object
+#              properties:
+#                commentId:
+#                  type: string
+#                userName:
+#                  type: string
+#                message:
+#                  type: string
       DefinitionBody:
         Fn::Transform:
           Name: AWS::Include
           Parameters:
-            Location: CommentsApi-Prod-oas30-apigateway.yaml
+            Location: Comments API-Prod-oas30-apigateway.yaml
 
       MethodSettings:
         - ResourcePath: /comments

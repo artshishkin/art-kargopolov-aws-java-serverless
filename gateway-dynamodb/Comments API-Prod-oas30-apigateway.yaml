@@ -20,10 +20,7 @@ paths:
       responses:
         "200":
           description: "200 response"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
+          content: {}
       x-amazon-apigateway-integration:
         credentials:
           Fn::GetAtt: APIGatewayRole.Arn
@@ -50,13 +47,17 @@ paths:
         type: "aws"
   /comments:
     post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommentCreateRequest"
+        required: true
       responses:
         "200":
           description: "200 response"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Empty"
+          content: {}
+      x-amazon-apigateway-request-validator: "Validate body"
       x-amazon-apigateway-integration:
         credentials:
           Fn::GetAtt: APIGatewayRole.Arn
@@ -79,6 +80,21 @@ paths:
         type: "aws"
 components:
   schemas:
-    Empty:
-      title: "Empty Schema"
+    CommentCreateRequest:
+      required:
+        - "message"
+        - "pageId"
+        - "userName"
       type: "object"
+      properties:
+        userName:
+          type: "string"
+        message:
+          type: "string"
+        pageId:
+          type: "string"
+
+x-amazon-apigateway-request-validators:
+  Validate body:
+    validateRequestParameters: false
+    validateRequestBody: true
