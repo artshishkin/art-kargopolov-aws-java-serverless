@@ -25,9 +25,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Empty"
       x-amazon-apigateway-integration:
-        credentials: "arn:aws:iam::392971033516:role/Gateway2DynamoDBTutorialRole"
+        credentials:
+          Fn::GetAtt: APIGatewayRole.Arn
         httpMethod: "POST"
-        uri: "arn:aws:apigateway:eu-north-1:dynamodb:action/Query"
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:dynamodb:action/Query"
         responses:
           default:
             statusCode: "200"
@@ -56,9 +58,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Empty"
       x-amazon-apigateway-integration:
-        credentials: "arn:aws:iam::392971033516:role/Gateway2DynamoDBTutorialRole"
+        credentials:
+          Fn::GetAtt: APIGatewayRole.Arn
         httpMethod: "POST"
-        uri: "arn:aws:apigateway:eu-north-1:dynamodb:action/PutItem"
+        uri:
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:dynamodb:action/PutItem"
         responses:
           default:
             statusCode: "200"

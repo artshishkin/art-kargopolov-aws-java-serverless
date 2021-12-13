@@ -91,6 +91,32 @@ Resources:
           HttpMethod: GET
           CachingEnabled: false
 
+  APIGatewayRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - apigateway.amazonaws.com
+      Policies:
+        - PolicyName: APIGatewayDynamoDBPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'dynamodb:PutItem'
+                  - 'dynamodb:Query'
+                # Including * in the resource Arn allows access to the DynamoDB table and indexes
+                Resource: !Sub
+                  - '${varTableArn}*'
+                  - varTableArn: !GetAtt CommentsTable.Arn
+
 Outputs:
   CommentsApi:
     Description: "API Gateway endpoint URL for Prod stage for Comments API"
