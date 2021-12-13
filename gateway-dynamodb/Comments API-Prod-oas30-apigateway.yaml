@@ -20,7 +20,10 @@ paths:
       responses:
         "200":
           description: "200 response"
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommentsRetrieveResponse"
       x-amazon-apigateway-integration:
         credentials:
           Fn::GetAtt: APIGatewayRole.Arn
@@ -93,7 +96,20 @@ components:
           type: "string"
         pageId:
           type: "string"
-
+    CommentsRetrieveResponse:
+      required:
+        - "comments"
+      type: "object"
+      properties:
+        comments:
+          type: "object"
+          properties:
+            commentId:
+              type: "string"
+            userName:
+              type: "string"
+            message:
+              type: "string"
 x-amazon-apigateway-request-validators:
   Validate body:
     validateRequestParameters: false
