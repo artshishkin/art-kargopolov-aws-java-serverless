@@ -57,8 +57,8 @@ paths:
               $ref: "#/components/schemas/CommentCreateRequest"
         required: true
       responses:
-        "200":
-          description: "200 response"
+        "201":
+          description: "Comment Created Successfully"
           content: {}
       x-amazon-apigateway-request-validator: "Validate body"
       x-amazon-apigateway-integration:
@@ -69,7 +69,7 @@ paths:
           Fn::Sub: "arn:aws:apigateway:${AWS::Region}:dynamodb:action/PutItem"
         responses:
           default:
-            statusCode: "200"
+            statusCode: "201"
         requestTemplates:
           application/json:
             Fn::Sub: "{ \r\n    \"TableName\": \"${CommentsTable}\",\r\n    \"Item\"\
