@@ -1,4 +1,4 @@
-POST https://r8a5swk3ik.execute-api.eu-north-1.amazonaws.com/Prod/users
+POST https://w9ftu2qts5.execute-api.eu-north-1.amazonaws.com/Prod/users
 Content-Type: application/json
 
 {
