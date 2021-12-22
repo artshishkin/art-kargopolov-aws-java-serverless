@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>photo-app-users-api-cognito</artifactId>
+        <groupId>net.shyshkin.study.aws.serverless.cognito</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>lambdas</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.shyshkin.study.aws.serverless.cognito</groupId>
+            <artifactId>logging-layer</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.shyshkin.study.aws.serverless.cognito</groupId>
+            <artifactId>lambda-core-layer</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.shyshkin.study.aws.serverless.cognito</groupId>
+            <artifactId>cognito-sdk-layer</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.shyshkin.study.aws.serverless.cognito</groupId>
+            <artifactId>kms-sdk-layer</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.shyshkin.study.aws.serverless.cognito</groupId>
+            <artifactId>mapping-layer</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -5,7 +5,6 @@ Description: >
 
   Sample SAM Template for photo-app-users-api-cognito
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 20
@@ -13,7 +12,7 @@ Globals:
     Architectures:
       - x86_64
     MemorySize: 512
-    Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+    Environment:
       Variables:
         MY_COGNITO_POOL_APP_CLIENT_ID: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgEOdmcInSOeEJFRwg6bX5+uAAAAeDB2BgkqhkiG9w0BBwagaTBnAgEAMGIGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM8bRcguOpqwruQsfKAgEQgDUCPqxl4R1rLQYiwZ8+ymGxgdxZoUlx6iuTRpHivrtSKf3DT4SuWF+uR2ZCUtSNnkpnUKS2lQ==
         MY_COGNITO_POOL_APP_CLIENT_SECRET: AQICAHhJFGAnVhYAPnsHwblpOqU1qgM5vu37AIZk+pkNU6kxSgGazNuI/AZar7L1Ojlo42vVAAAAlTCBkgYJKoZIhvcNAQcGoIGEMIGBAgEAMHwGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMvPc3xnWGNPyegfqkAgEQgE/wvYnEJsjB3I7S2RE7LMYRcdcOwY+gzvtPzAI5Hinfkr3CLGR0tZaO9W1k0FkwGGGMoQO/EENY+eIzibWfuyzjYnqpFVe0fNAV7V0wp7s2
@@ -21,26 +20,38 @@ Globals:
 
 Resources:
   CreateUserHandlerFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Type: AWS::Serverless::Function
     Properties:
-      CodeUri: PhotoAppUsersApiCognito
+      CodeUri: PhotoAppUsersApiCognito/lambdas/target/lambdas-1.0.jar
       Handler: net.shyshkin.study.aws.serverless.cognito.CreateUserHandler::handleRequest
+      Layers:
+        - !Ref LambdaCoreLayer
+        - !Ref LoggingLayer
+        - !Ref MappingLayer
+        - !Ref CognitoSdkLayer
+        - !Ref KmsSdkLayer
       Events:
         CreateUser:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Type: Api
           Properties:
             RestApiId: !Ref MyRestApi
             Path: /users
             Method: post
 
   ConfirmUserHandlerFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Type: AWS::Serverless::Function
     Properties:
-      CodeUri: PhotoAppUsersApiCognito
+      CodeUri: PhotoAppUsersApiCognito/lambdas/target/lambdas-1.0.jar
       Handler: net.shyshkin.study.aws.serverless.cognito.ConfirmUserHandler::handleRequest
+      Layers:
+        - !Ref LambdaCoreLayer
+        - !Ref LoggingLayer
+        - !Ref MappingLayer
+        - !Ref CognitoSdkLayer
+        - !Ref KmsSdkLayer
       Events:
         ConfirmUser:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Type: Api
           Properties:
             RestApiId: !Ref MyRestApi
             Path: /confirm
@@ -49,8 +60,14 @@ Resources:
   LoginUserHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: PhotoAppUsersApiCognito
+      CodeUri: PhotoAppUsersApiCognito/lambdas/target/lambdas-1.0.jar
       Handler: net.shyshkin.study.aws.serverless.cognito.LoginUserHandler::handleRequest
+      Layers:
+        - !Ref LambdaCoreLayer
+        - !Ref LoggingLayer
+        - !Ref MappingLayer
+        - !Ref CognitoSdkLayer
+        - !Ref KmsSdkLayer
       Events:
         LoginUser:
           Type: Api
@@ -62,8 +79,14 @@ Resources:
   AddUserToGroupHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: PhotoAppUsersApiCognito
+      CodeUri: PhotoAppUsersApiCognito/lambdas/target/lambdas-1.0.jar
       Handler: net.shyshkin.study.aws.serverless.cognito.AddUserToGroupHandler::handleRequest
+      Layers:
+        - !Ref LambdaCoreLayer
+        - !Ref LoggingLayer
+        - !Ref MappingLayer
+        - !Ref CognitoSdkLayer
+        - !Ref KmsSdkLayer
       Policies:
         - Version: '2012-10-17'
           Statement:
@@ -82,8 +105,14 @@ Resources:
   GetUserHandlerFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: PhotoAppUsersApiCognito
+      CodeUri: PhotoAppUsersApiCognito/lambdas/target/lambdas-1.0.jar
       Handler: net.shyshkin.study.aws.serverless.cognito.GetUserHandler::handleRequest
+      Layers:
+        - !Ref LambdaCoreLayer
+        - !Ref LoggingLayer
+        - !Ref MappingLayer
+        - !Ref CognitoSdkLayer
+        - !Ref KmsSdkLayer
       Events:
         GetUser:
           Type: Api
@@ -91,6 +120,41 @@ Resources:
             RestApiId: !Ref MyRestApi
             Path: /users/me
             Method: get
+
+  LambdaCoreLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: PhotoAppUsersApiCognito/layers/lambda-core-layer/target/lambda-core-layer.zip
+      CompatibleRuntimes:
+        - java11
+
+  LoggingLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: PhotoAppUsersApiCognito/layers/logging-layer/target/logging-layer.zip
+      CompatibleRuntimes:
+        - java11
+
+  MappingLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: PhotoAppUsersApiCognito/layers/mapping-layer/target/mapping-layer.zip
+      CompatibleRuntimes:
+        - java11
+
+  CognitoSdkLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: PhotoAppUsersApiCognito/layers/cognito-sdk-layer/target/cognito-sdk-layer.zip
+      CompatibleRuntimes:
+        - java11
+
+  KmsSdkLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: PhotoAppUsersApiCognito/layers/kms-sdk-layer/target/kms-sdk-layer.zip
+      CompatibleRuntimes:
+        - java11
 
   MyRestApi:
     Type: AWS::Serverless::Api
