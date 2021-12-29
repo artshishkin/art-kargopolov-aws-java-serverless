@@ -1,6 +1,7 @@
 package net.shyshkin.study.aws.serverless.cognito;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import net.shyshkin.study.aws.serverless.cognito.service.CognitoUserService;
 import org.junit.jupiter.api.*;
@@ -10,7 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CreateUserHandlerTest {
@@ -23,6 +26,9 @@ class CreateUserHandlerTest {
 
     @Mock
     Context context;
+
+    @Mock
+    LambdaLogger loggerMock;
 
     @InjectMocks
     CreateUserHandler createUserHandler;
@@ -68,9 +74,12 @@ class CreateUserHandlerTest {
                 "}";
         given(requestEvent.getBody()).willReturn(userDetailsJsonString);
 
+        when(context.getLogger()).thenReturn(loggerMock);
+
         // Act or When
 
         // Assert or Then
+        verify(loggerMock,times(1)).log(anyString());
 
     }
 }
