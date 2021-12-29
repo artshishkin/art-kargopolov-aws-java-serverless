@@ -17,11 +17,13 @@ class CreateUserHandlerTest {
 
     @Test
     void testHandleRequest_whenValidRequestProvided_thenShouldReturnSuccessfulResponse() {
-        //given
+        // A A A
 
-        //when
+        // Arrange or Given
 
-        //then
+        // Act or When
+
+        // Assert or Then
 
     }
 }
