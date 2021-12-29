@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -85,16 +86,23 @@ class CreateUserHandlerTest {
         createUserResult.addProperty("cognitoUserId", "23931bbb-6564-4aab-b6c2-161e9bebf64e");
         createUserResult.addProperty("isConfirmed", false);
 
-        when(cognitoUserService.createUser(any(JsonObject.class), anyString(), anyString())).thenReturn(createUserResult);
+        when(cognitoUserService.createUser(any(), any(), any())).thenReturn(createUserResult);
 
         // Act or When
         APIGatewayProxyResponseEvent responseEvent = createUserHandler.handleRequest(requestEvent, context);
         String responseBody = responseEvent.getBody();
         JsonObject responseBodyJson = JsonParser.parseString(responseBody).getAsJsonObject();
 
-
         // Assert or Then
         verify(loggerMock, times(1)).log(anyString());
 
+        assertThat(responseBodyJson.get("isSuccessful").getAsBoolean()).isTrue();
+        assertThat(responseBodyJson.get("statusCode").getAsInt()).isEqualTo(200);
+        assertThat(responseBodyJson.get("cognitoUserId").getAsString()).isEqualTo("23931bbb-6564-4aab-b6c2-161e9bebf64e");
+        assertThat(responseBodyJson.get("isConfirmed").getAsBoolean()).isFalse();
+
+        assertThat(responseEvent.getStatusCode()).isEqualTo(200);
+
+        verify(cognitoUserService).createUser(any(),any(),any());
     }
 }
