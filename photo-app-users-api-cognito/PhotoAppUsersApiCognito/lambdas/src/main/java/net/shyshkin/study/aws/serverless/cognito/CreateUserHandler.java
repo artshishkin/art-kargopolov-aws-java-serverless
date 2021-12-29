@@ -30,6 +30,14 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
         this.appClientSecret = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_SECRET;
     }
 
+    protected CreateUserHandler(CognitoUserService cognitoUserService,
+                             String appClientId,
+                             String appClientSecret) {
+        this.cognitoUserService = cognitoUserService;
+        this.appClientId = appClientId;
+        this.appClientSecret = appClientSecret;
+    }
+
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
