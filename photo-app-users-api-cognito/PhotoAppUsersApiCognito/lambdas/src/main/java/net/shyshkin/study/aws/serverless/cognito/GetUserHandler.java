@@ -23,7 +23,7 @@ public class GetUserHandler implements RequestHandler<APIGatewayProxyRequestEven
         try {
 
             String accessToken = input.getHeaders().get("AccessToken");
-            JsonObject getUserResult = CognitoUserService.instance().getUser(accessToken);
+            JsonObject getUserResult = new CognitoUserService(System.getenv("AWS_REGION")).getUser(accessToken);
 
             response.withBody(getUserResult.toString())
                     .withStatusCode(getUserResult.get("statusCode").getAsInt());

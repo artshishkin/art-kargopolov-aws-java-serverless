@@ -25,7 +25,7 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
     private final String appClientSecret;
 
     public CreateUserHandler() {
-        this.cognitoUserService = CognitoUserService.instance();
+        this.cognitoUserService = new CognitoUserService(System.getenv("AWS_REGION"));
         this.appClientId = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_ID;
         this.appClientSecret = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_SECRET;
     }

@@ -18,7 +18,7 @@ public class ConfirmUserHandler implements RequestHandler<APIGatewayProxyRequest
     private final String appClientSecret;
 
     public ConfirmUserHandler() {
-        this.cognitoUserService = CognitoUserService.instance();
+        this.cognitoUserService = new CognitoUserService(System.getenv("AWS_REGION"));
         this.appClientId = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_ID;
         this.appClientSecret = KMSUserService.MY_COGNITO_POOL_APP_CLIENT_SECRET;
     }

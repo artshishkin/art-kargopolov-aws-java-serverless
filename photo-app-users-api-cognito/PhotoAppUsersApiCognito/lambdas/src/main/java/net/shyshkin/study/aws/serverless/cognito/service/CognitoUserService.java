@@ -18,15 +18,9 @@ public class CognitoUserService {
 
     private static final Logger log = LoggerFactory.getLogger(CognitoUserService.class);
 
-    private CognitoIdentityProviderClient cognitoIdentityProviderClient;
+    private final CognitoIdentityProviderClient cognitoIdentityProviderClient;
 
-    private static final CognitoUserService INSTANCE = new CognitoUserService(System.getenv("AWS_REGION"));
-
-    public static CognitoUserService instance() {
-        return INSTANCE;
-    }
-
-    private CognitoUserService(String region) {
+    public CognitoUserService(String region) {
         this.cognitoIdentityProviderClient = CognitoIdentityProviderClient
                 .builder()
                 .region(Region.of(region))
