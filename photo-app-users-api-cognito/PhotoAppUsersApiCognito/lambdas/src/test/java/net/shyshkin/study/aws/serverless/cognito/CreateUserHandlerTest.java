@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class CreateUserHandlerTest {
@@ -59,6 +60,13 @@ class CreateUserHandlerTest {
         // A A A
 
         // Arrange or Given
+        String userDetailsJsonString = "{\n" +
+                "  \"email\":\"kateshyshkina@mailinator.com\",\n" +
+                "  \"password\":\"12345678\",\n" +
+                "  \"firstName\":\"Kate\",\n" +
+                "  \"lastName\":\"Shyshkina\"\n" +
+                "}";
+        given(requestEvent.getBody()).willReturn(userDetailsJsonString);
 
         // Act or When
 
