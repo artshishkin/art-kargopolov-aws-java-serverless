@@ -1617,3 +1617,16 @@ Response Body: {}
 -  modify policy `Gateway2DynamoDBTutorial` to allow  access to all the tables 
 -  POST method works
 -  GET method (query by secondary index) does not work
+
+####  Section 23: API Keys and Usage Plans
+
+#####  191. Create a new API Key
+
+-  API Gateway -> Sample project (PetStore)
+-  API Keys -> Actions -> Create API Key
+-  Name: `abc-customer-free-key`
+-  Save
+
+
+
+
