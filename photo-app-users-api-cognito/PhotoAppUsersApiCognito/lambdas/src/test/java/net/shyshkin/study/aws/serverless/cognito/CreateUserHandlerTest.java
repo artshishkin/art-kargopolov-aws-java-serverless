@@ -3,7 +3,9 @@ package net.shyshkin.study.aws.serverless.cognito;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.shyshkin.study.aws.serverless.cognito.service.CognitoUserService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -86,6 +88,10 @@ class CreateUserHandlerTest {
         when(cognitoUserService.createUser(any(JsonObject.class), anyString(), anyString())).thenReturn(createUserResult);
 
         // Act or When
+        APIGatewayProxyResponseEvent responseEvent = createUserHandler.handleRequest(requestEvent, context);
+        String responseBody = responseEvent.getBody();
+        JsonObject responseBodyJson = JsonParser.parseString(responseBody).getAsJsonObject();
+
 
         // Assert or Then
         verify(loggerMock, times(1)).log(anyString());
