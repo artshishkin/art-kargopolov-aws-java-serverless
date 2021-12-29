@@ -1,0 +1,9 @@
+### API Key absent -> 403 Forbidden
+GET https://f8htybh8b8.execute-api.eu-north-1.amazonaws.com/dev/pets
+Accept: application/json
+
+### API Key present -> 200 OK
+GET https://f8htybh8b8.execute-api.eu-north-1.amazonaws.com/dev/pets
+Accept: application/json
+X-api-key: 1tRQBxdiUk2EnMa6DF0a08WKOW9TKK5zfwhpim50
+

@@ -1650,3 +1650,26 @@ Response Body: {}
 -  API Gateway -> PetStore
 -  `/pets` -> GET -> Method Request
 -  API Key Required -> true
+
+#####  194. Trying how it works
+
+-  API Gateway -> API Keys -> `abc-customer-free-key`
+    -  API key -> Show
+-  without key:
+    -  403 - Forbidden
+```json
+{
+  "message": "Forbidden"
+}
+```
+-  with key:
+    -  `X-api-key`
+    -  200 - Ok
+-  after exceeding quota (30 per day)    
+```json
+{
+  "message": "Limit Exceeded"
+}
+```
+
+
