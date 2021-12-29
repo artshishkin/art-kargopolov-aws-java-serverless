@@ -1645,4 +1645,8 @@ Response Body: {}
     -  Add API Key to Usage Plan
         -  `abc-customer-free-key`
 
+#####  193. Secure API Endpoint with API Key
 
+-  API Gateway -> PetStore
+-  `/pets` -> GET -> Method Request
+-  API Key Required -> true
