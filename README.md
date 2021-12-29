@@ -1627,6 +1627,22 @@ Response Body: {}
 -  Name: `abc-customer-free-key`
 -  Save
 
+#####  192. Create a Usage Plan
 
+-  API Gateway -> Sample project (PetStore)
+-  Usage Plans -> Create:
+    -  Name: KargopolovFree
+    -  Throttling:
+        -  Rate: 10 (requests per second)
+        -  Burst: 10
+    -  Quota:
+        -  30 per Day (for demo)
+    -  Next
+    -  Add API Stage
+        -  API: PetStore
+        -  Stage: dev (it needs to be created)
+    -  Next
+    -  Add API Key to Usage Plan
+        -  `abc-customer-free-key`
 
 
