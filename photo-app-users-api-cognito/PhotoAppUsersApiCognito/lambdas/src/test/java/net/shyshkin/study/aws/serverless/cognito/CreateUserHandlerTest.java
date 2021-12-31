@@ -44,6 +44,7 @@ class CreateUserHandlerTest {
 
     @BeforeEach
     void setUp() {
+        when(context.getLogger()).thenReturn(loggerMock);
         System.out.println("Before Each");
     }
 
@@ -78,8 +79,6 @@ class CreateUserHandlerTest {
                 "}";
         given(requestEvent.getBody()).willReturn(userDetailsJsonString);
 
-        when(context.getLogger()).thenReturn(loggerMock);
-
         JsonObject createUserResult = new JsonObject();
         createUserResult.addProperty("isSuccessful", true);
         createUserResult.addProperty("statusCode", 200);
@@ -103,6 +102,26 @@ class CreateUserHandlerTest {
 
         assertThat(responseEvent.getStatusCode()).isEqualTo(200);
 
-        verify(cognitoUserService).createUser(any(),any(),any());
+        verify(cognitoUserService).createUser(any(), any(), any());
     }
+
+    @Test
+    void testHandleRequest_whenEmptyRequestProvided_thenShouldReturnErrorMessage() {
+
+        // Arrange
+        given(requestEvent.getBody()).willReturn("");
+
+        // Act
+        APIGatewayProxyResponseEvent responseEvent = createUserHandler.handleRequest(requestEvent, context);
+        String responseBody = responseEvent.getBody();
+        JsonObject responseBodyJson = JsonParser.parseString(responseBody).getAsJsonObject();
+
+        // Assert
+        verify(loggerMock, atLeastOnce()).log(anyString());
+
+        assertThat(responseEvent.getStatusCode()).isEqualTo(500);
+        assertThat(responseBodyJson.get("message")).isNotNull();
+        assertThat(responseBodyJson.get("message").getAsString()).isNotEmpty();
+    }
+
 }

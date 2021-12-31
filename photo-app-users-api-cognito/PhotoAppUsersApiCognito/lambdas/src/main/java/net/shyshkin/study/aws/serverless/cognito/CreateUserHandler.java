@@ -47,18 +47,28 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
         LambdaLogger logger = context.getLogger();
         logger.log("Request body: " + requestBody);
 
-        var userDetails = JsonParser.parseString(requestBody).getAsJsonObject();
-
-
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
+
         try {
+            var userDetails = JsonParser.parseString(requestBody).getAsJsonObject();
+
             JsonObject createUserResult = cognitoUserService.createUser(userDetails, appClientId, appClientSecret);
             response
                     .withStatusCode(200)
                     .withBody(createUserResult.toString());
         } catch (AwsServiceException ex) {
             String errorMessage = ex.awsErrorDetails().errorMessage();
+            logger.log(errorMessage);
+
+            var errorResponse = new ErrorResponse(errorMessage);
+            var respBody = SerializerService.instance().toJson(errorResponse);
+
+            response
+                    .withStatusCode(500)
+                    .withBody(respBody);
+        } catch (Exception ex) {
+            String errorMessage = ex.getMessage();
             logger.log(errorMessage);
 
             var errorResponse = new ErrorResponse(errorMessage);
