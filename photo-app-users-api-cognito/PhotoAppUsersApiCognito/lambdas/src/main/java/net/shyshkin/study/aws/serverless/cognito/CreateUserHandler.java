@@ -65,7 +65,7 @@ public class CreateUserHandler implements RequestHandler<APIGatewayProxyRequestE
             var respBody = SerializerService.instance().toJson(errorResponse);
 
             response
-                    .withStatusCode(500)
+                    .withStatusCode(ex.awsErrorDetails().sdkHttpResponse().statusCode())
                     .withBody(respBody);
         } catch (Exception ex) {
             String errorMessage = ex.getMessage();

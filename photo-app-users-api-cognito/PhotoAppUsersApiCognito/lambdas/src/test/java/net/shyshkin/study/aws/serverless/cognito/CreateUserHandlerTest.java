@@ -12,6 +12,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import software.amazon.awssdk.awscore.exception.AwsErrorDetails;
+import software.amazon.awssdk.awscore.exception.AwsServiceException;
+import software.amazon.awssdk.http.SdkHttpResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -122,6 +125,37 @@ class CreateUserHandlerTest {
         assertThat(responseEvent.getStatusCode()).isEqualTo(500);
         assertThat(responseBodyJson.get("message")).isNotNull();
         assertThat(responseBodyJson.get("message").getAsString()).isNotEmpty();
+    }
+
+    @Test
+    void testHandleRequest_whenAwsServiceExceptionTakesPlace_thenShouldReturnErrorMessage() {
+
+        // Arrange
+        when(requestEvent.getBody()).thenReturn("{}");
+
+        String errorMessage = "Fake Exception took place";
+        AwsErrorDetails awsErrorDetails = AwsErrorDetails.builder()
+                .errorMessage(errorMessage)
+                .sdkHttpResponse(SdkHttpResponse.builder().statusCode(500).build())
+                .build();
+        AwsServiceException awsServiceException = AwsServiceException.builder()
+                .awsErrorDetails(awsErrorDetails)
+                .statusCode(500)
+                .build();
+        when(cognitoUserService.createUser(any(), any(), any())).thenThrow(awsServiceException);
+
+        // Act
+        APIGatewayProxyResponseEvent responseEvent = createUserHandler.handleRequest(requestEvent, context);
+        String responseBody = responseEvent.getBody();
+        JsonObject responseBodyJson = JsonParser.parseString(responseBody).getAsJsonObject();
+
+        // Assert
+        verify(loggerMock, atLeastOnce()).log(anyString());
+
+        assertThat(responseEvent.getStatusCode()).isEqualTo(awsErrorDetails.sdkHttpResponse().statusCode());
+        assertThat(responseBodyJson.get("message")).isNotNull();
+        assertThat(responseBodyJson.get("message").getAsString()).isNotEmpty();
+        assertThat(responseBodyJson.get("message").getAsString()).isEqualTo(errorMessage);
     }
 
 }
