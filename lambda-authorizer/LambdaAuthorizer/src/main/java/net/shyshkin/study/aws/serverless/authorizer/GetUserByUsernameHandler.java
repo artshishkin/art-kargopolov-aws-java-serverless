@@ -32,7 +32,10 @@ public class GetUserByUsernameHandler implements RequestHandler<APIGatewayProxyR
             return new APIGatewayProxyResponseEvent()
                     .withBody(userDetails.toString())
                     .withStatusCode(200)
-                    .withHeaders(Map.of("Content-Type", "application/json"));
+                    .withHeaders(Map.of(
+                            "Content-Type", "application/json",
+                            "Access-Control-Allow-Origin", "*"
+                    ));
         } catch (Exception ex) {
             context.getLogger().log(ex.getMessage());
             return new APIGatewayProxyResponseEvent()
